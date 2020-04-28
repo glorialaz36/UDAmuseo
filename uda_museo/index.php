@@ -108,7 +108,7 @@ session_start();
                 <!--Caption-->
                 <div class="carousel-caption">
                     <div class="animated fadeInDown">
-                        <h3 class="h3-responsive"><a href="#interests">SEI UN SUPER APPASSIONATO DEL SETTORE?</a></h3>
+                        <h3 class="h3-responsive"><a href="#interests">SEI UN APPASSIONATO DEL SETTORE?</a></h3>
                         <p>Meccanica e fisica</p>
                     </div>
                 </div>
