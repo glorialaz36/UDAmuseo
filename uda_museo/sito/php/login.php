@@ -23,7 +23,7 @@
 		$email=$_POST['email'];
 		$password=sha1($_POST['psw']);
 		//sql login
-		$sql="select * from visitatore where email='$email' AND pwd='$password'";
+		$sql="select * from UTENTE where email='$email' AND pwd='$password'";
 		$query = mysqli_query($mysqli,$sql);
 		//controllo errori
 		if($query){
