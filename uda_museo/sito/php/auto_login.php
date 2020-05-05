@@ -12,7 +12,9 @@
 		if($query){
 			//controllo corrispondenza password e email
 			if(mysqli_num_rows($query)>0){
+				$row = mysqli_fetch_array($query);
 				$_SESSION['email']=$email;
+				$_SESSION['nome']=$row['nome'];
 				$_SESSION['password']=$password;
 				header("location: index.php"); 
 			}else{

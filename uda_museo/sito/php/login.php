@@ -29,7 +29,9 @@
 		if($query){
 			//controllo corrispondenza password e email
 			if(mysqli_num_rows($query)>0){
+				$row = mysqli_fetch_array($query);
 				$_SESSION['email']=$email;
+				$_SESSION['nome']=$row['nome'];
 				$_SESSION['password']=$password;
 				$sql2="select * from AMMINISTRATORE where email='$email'";
 				$query2 = mysqli_query($mysqli,$sql2);
@@ -50,7 +52,7 @@
 			}else{
 			echo "Error: ". $sql . "<br>" .mysqli_error($mysqli);
 		}
-				header("location: index.php"); 
+				header("location: ..\..\index.php"); 
 			}else{
 					header("location: login.php");
 				}
@@ -59,6 +61,10 @@
 			echo "Error: ". $sql . "<br>" .mysqli_error($mysqli);
 		}
 	}
+	echo "<li class='dropdown nav-item'>";
+		echo "<a class='nav-link' href='register.php'>";
+			echo "<i>register</i>Non hai un account? Register</a>";
+	echo "</li>";
 ?>
 
 <script>
