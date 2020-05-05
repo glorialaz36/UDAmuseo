@@ -23,9 +23,7 @@
 		$email=$_POST['email'];
 		$password=sha1($_POST['psw']);
 		//sql login
-		HEAD
 		$sql="select * from utente where email=\"$email\" AND pwd=\"$password\";";
-		Gloria-Carlo
 		$query = mysqli_query($mysqli,$sql);
 		//controllo errori
 		//if($query){
