@@ -7,7 +7,7 @@ if(!isset($_POST['eventi']) && !isset($_POST['nBiglietti']) ){
 	//primo ramo . Inserimento dati 
 echo "<form action=\"biglietteria.php\" method=\"POST\">
 		Numero di Biglietti:<input type=\"number\" name=\"nBiglietti\" min=\"1\" max=\"40\"><br><br>
-		Categoria : <select name=\"eventi\" required>";
+		Eventi : <select name=\"eventi\" required>";
 		$sql="select * from EVENTO ";
 		$query = mysqli_query($mysqli,$sql);
 		//controllo esito query
@@ -25,6 +25,9 @@ echo "<form action=\"biglietteria.php\" method=\"POST\">
 		
 	}
 	echo "</select><br><br>";
+	
+	
+	
 			//recupero numero e descrizione degli accessori disponibili
 		$sql="select * from ACCESSORIO";
 		$query = mysqli_query($mysqli,$sql);
@@ -42,6 +45,9 @@ echo "<form action=\"biglietteria.php\" method=\"POST\">
 		//errore 
 		echo "Error: ". $sql . "<br>" .mysqli_error($mysqli);
 		
+		
+		
+		
 	}
 	//conclusione form 
 	echo "<br><br><input type=\"submit\" name=\"paga\" value=\"Paga\" />
@@ -56,13 +62,8 @@ echo "<form action=\"biglietteria.php\" method=\"POST\">
 	$_SESSION['accessori']=$_POST['accessori'];
 	header("location: riepilogo e reg biglietti.php");
 }   
-	
-	
-	
-	
-
-
-
-
-
 ?>
+
+
+
+

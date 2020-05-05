@@ -16,11 +16,6 @@
 		Email :  <input type=\"email\" name = \"email\" placeholder=\"Inserici la tua email\" required /><br><br>
 		Password :  <input type=\"password\" name = \"psw\" size =\"20\" id=myPassword required />
 		<input type=\"checkbox\" onclick=\"myFunction()\">Show Password<br><br>
-		Categoria : <select name=\"categoria\">
-				<option value=\"1\">normale</option>
-				<option value=\"2\">disabile</option>
-				<option value=\"3\">sordomuto</option>
-			</select><br><br>
 		<input type=\"submit\" name=\"registrati\" value=\"Registrati\" />
 		<input type=\"reset\" name=\"cancella\" value=\"Reset\" /> <br><br>
 	
@@ -34,9 +29,8 @@
 		$email=$_POST['email'];
 		//criptazione password
 		$password=sha1($_POST['psw']);
-		$categoria = $_POST['categoria'];
 		//sql inserimento nuovo visitatore
-		$sql="insert into VISITATORE(email,nome,pwd,catVis) values ('$email','$nome','$password','$categoria')";
+		$sql="insert into UTENTE(email,nome,pwd) values ('$email','$nome','$password')";
 		$query = mysqli_query($mysqli,$sql);
 		//controllo esito query
 		if($query){
@@ -52,7 +46,10 @@
 		header("location: register.php");
 	}
 }
-	
+	echo "<li class='dropdown nav-item'>";
+		echo "<a class='nav-link' href='login.php'>";
+			echo "<i>register</i>Hai già un account? Login</a>";
+	echo "</li>";
 ?>
 <script>
 	//script per rendere visibile o meno la password mentre la si inserisce

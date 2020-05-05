@@ -15,7 +15,7 @@
 		<input type=\"reset\" name=\"cancella\" value=\"Reset\" /> <br><br>
 		</form>";
 		//controllo per pagina precedente causa password o email errati
-		if(strstr($_SERVER['HTTP_REFERER'],"login.php") )){
+		if(strstr($_SERVER['HTTP_REFERER'],"login.php") ){
 		echo "email o password errati, riprova";	
 	}
 	}else{
@@ -23,15 +23,36 @@
 		$email=$_POST['email'];
 		$password=sha1($_POST['psw']);
 		//sql login
-		$sql="select * from visitatore where email='$email' AND pwd='$password'";
+		$sql="select * from UTENTE where email='$email' AND pwd='$password'";
 		$query = mysqli_query($mysqli,$sql);
 		//controllo errori
 		if($query){
 			//controllo corrispondenza password e email
 			if(mysqli_num_rows($query)>0){
+				$row = mysqli_fetch_array($query);
 				$_SESSION['email']=$email;
+				$_SESSION['nome']=$row['nome'];
 				$_SESSION['password']=$password;
-				header("location: index.php"); 
+				$sql2="select * from AMMINISTRATORE where email='$email'";
+				$query2 = mysqli_query($mysqli,$sql2);
+				if($query2){
+					if(mysqli_num_rows($query2)>0) {
+						
+						//loggato come amministratore
+						while($riga=mysqli_fetch_array($query2)){
+						$_SESSION['amministratore']=true;
+						$_SESSION['mansione']=$riga['mansione'];
+					}
+						
+				}else{
+					//loggato come utente visitatore
+					$_SESSION['amministratore']=false;
+					$_SESSION['mansione']=0;
+				}
+			}else{
+			echo "Error: ". $sql . "<br>" .mysqli_error($mysqli);
+		}
+				header("location: ..\..\index.php"); 
 			}else{
 					header("location: login.php");
 				}
@@ -40,6 +61,10 @@
 			echo "Error: ". $sql . "<br>" .mysqli_error($mysqli);
 		}
 	}
+	echo "<li class='dropdown nav-item'>";
+		echo "<a class='nav-link' href='register.php'>";
+			echo "<i>register</i>Non hai un account? Register</a>";
+	echo "</li>";
 ?>
 
 <script>

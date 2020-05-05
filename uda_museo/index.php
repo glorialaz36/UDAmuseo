@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 <?php
 session_start();
 ?>
@@ -27,9 +27,8 @@ session_start();
     <!--<link href="http://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">-->
 
 </head>
-
 <body id="page-top">
-
+    
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
         <div class="container">
@@ -45,15 +44,28 @@ session_start();
                     <li class="nav-item">
                         <a class="nav-link js-scroll-trigger" href="#events">eventi e mostre</a>
                     </li>
-                    <li class="dropdown nav-item">
-                        <a class="nav-link" data-toggle="dropdown"><!--mettere il nome se loggato-->
-                            <i class="fa fa-user"></i><i class="fa fa-angle-down"></i></a>
-                        <ul class="dropdown-menu" id="dropdown">
-                            <li><a class="nav-link-drop" href="#">account</a></li><!--da visualizzare se loggato, sia per utente che amministratore-->
-                            <li ><a class="nav-link-drop" href="#">acquisti</a></li><!--da visualizzare se loggato, sia per utente che amministratore-->
-                            <li ><a class="nav-link-drop" href="#">gestisci</a></li> <!--da vedere se loggato da amministratore-->
-                        </ul>
-                    </li>
+					<?php
+						if(!isset($_SESSION['nome'])){
+							//non è loggato
+							echo "<li class='dropdown nav-item'>";
+								echo "<a class='nav-link' href='sito/php/login.php'>";
+									echo "<i class='fa fa-user'></i></a>";
+							echo "</li>";
+						}else{
+							//è loggato
+							echo "<li class='dropdown nav-item'>";
+								echo "<a class='nav-link' data-toggle='dropdown'>";//<!--mettere il nome se loggato-->
+									echo "<i class='fa fa-user'>".$_SESSION['nome']."</i><i class='fa fa-angle-down'></i></a>";
+								echo "<ul class='dropdown-menu' id='dropdown'>";
+									echo "<li><a class='nav-link-drop' href='#'>account</a></li>";//<!--da visualizzare se loggato, sia per utente che amministratore-->
+									echo "<li ><a class='nav-link-drop' href='riepilogo e reg biglietti.php'>acquisti</a></li>";//<!--da visualizzare se loggato, sia per utente che amministratore-->
+									if($_SESSION['amministratore']){
+										echo "<li ><a class='nav-link-drop' href='#'>gestisci</a></li>";//<!--da vedere se loggato da amministratore-->
+									}
+								echo "</ul>";
+							echo "</li>";
+						}
+					?>
                     <li class="nav-item">
                         <a class="nav-link js-scroll-trigger" href="#">
                             <i class="fa fa-shopping-cart"></i></a>
@@ -400,57 +412,50 @@ session_start();
             </div>
         </div>
 
-        <div class="container" id="footer">
-            <div class="row align-items-left">
-                <div class="col-md-4 ">
-                    <div class="social_icon">
-                        <a href="#"><i class="fa fa-map-marker"></i>
-                        <p><span>indirizzo</span> indirizzo</p></a>
-                    </div>
+        <div class="footer-distributed">
+            <div class="footer-left">
+                <div class="footer-icons">
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-google-plus-g"></i></a>
+                </div>
+            </div>
 
-                    <div>
-                        <a href="#"><i class="fa fa-phone"></i>
-                        <p>+39 000 000 0000</p></a>
-                    </div>
+            <div class="footer-center">
+                <div>
+                    <i class="fa fa-map-marker"></i>
+                    <p><span>Via Luigi Pettinati, 46</span>35129 - Padova  </p>
+                </div>
 
-                    <div>
-                        <a href="#"><i class="fa fa-envelope"></i></a>
-                        <p><a href="mailto:support@company.com">nome@email.com</a></p></a>
-                    </div>
+                <div>
+                    <i class="fa fa-phone"></i>
+                    <p>+39 000 000 0000</p>
                 </div>
-                <div class="col-md-4">
-                    <ul class="list-inline social-buttons">
-                        <li class="list-inline-item">
-                            <a href="#">
-                                <i class="fab fa-twitter"></i>
-                            </a>
-                        </li>
-                        <li class="list-inline-item">
-                            <a href="#">
-                                <i class="fab fa-facebook-f"></i>
-                            </a>
-                        </li>
-                        <li class="list-inline-item">
-                            <a href="#">
-                                <i class="fab fa-linkedin-in"></i>
-                            </a>
-                        </li>
-                    </ul>
+
+                <div>
+                    <i class="fa fa-envelope"></i>
+                    <p><a href="mailto:support@company.com">museoF1@email.it</a></p>
                 </div>
-                <div class="col-md-4">
-                    <span class="copyright">Copyright &copy; Your Website 2019</span>
-                    <ul class="list-inline quicklinks">
-                        <li class="list-inline-item">
-                            <a href="#">Privacy Policy</a>
-                        </li>
-                        <li class="list-inline-item">
-                            <a href="#">Terms of Use</a>
-                        </li>
-                    </ul>
-                </div>
+
+            </div>
+            <div class="footer-right">
+            <div class="map">
+            <iframe src="https://maps.google.com/maps?width=400&amp;height=300&amp;hl=en&amp;q=Via%20Luigi%20Pettinati%2C%2046%2035129%20-%20Padova%20%20+(Titolo)&amp;ie=UTF8&amp;t=p&amp;z=11&amp;iwloc=B&amp;output=embed" 
+             frameborder="0" scrolling="no" marginheight="0" marginwidth="0">
+            </iframe>
+            
+            </div>
+
+            <div class="footer-bottom">
+                <p class="section-subheading text-muted">This product includes PHP software, freely available from
+                    <a href="http://www.php.net/software/">http://www.php.net/software/</a>
+                </p>
             </div>
         </div>
     </footer>
+
+       
 </body>
 
 </html>
