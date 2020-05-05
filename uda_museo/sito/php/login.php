@@ -5,7 +5,7 @@
 	session_start();
 	include("conndb.php");
 	//connessionedb
-	if(!(isset($_POST['email']) && isset($_POST['psw']))){
+	if(!isset($_POST['email']) && !isset($_POST['psw'])){
 	//form login
 	echo "<form action=\"login.php\" method=\"POST\">
 		Email :  <input type=\"email\" name = \"email\" placeholder=\"Inserici la tua email\" required /><br><br>
@@ -23,22 +23,41 @@
 		$email=$_POST['email'];
 		$password=sha1($_POST['psw']);
 		//sql login
-		$sql="select * from utente where email=\"$email\" AND pwd=\"$password\";";
+		$sql="select * from UTENTE where email='$email' AND pwd='$password'";
 		$query = mysqli_query($mysqli,$sql);
 		//controllo errori
-		//if($query){
+		if($query){
 			//controllo corrispondenza password e email
 			if(mysqli_num_rows($query)>0){
 				$_SESSION['email']=$email;
 				$_SESSION['password']=$password;
-				header("location: ../../index.php"); 
+				$sql2="select * from AMMINISTRATORE where email='$email'";
+				$query2 = mysqli_query($mysqli,$sql2);
+				if($query2){
+					if(mysqli_num_rows($query2)>0) {
+						
+						//loggato come amministratore
+						while($riga=mysqli_fetch_array($query2)){
+						$_SESSION['amministratore']=true;
+						$_SESSION['mansione']=$riga['mansione'];
+					}
+						
+				}else{
+					//loggato come utente visitatore
+					$_SESSION['amministratore']=false;
+					$_SESSION['mansione']=0;
+				}
+			}else{
+			echo "Error: ". $sql . "<br>" .mysqli_error($mysqli);
+		}
+				header("location: index.php"); 
 			}else{
 					header("location: login.php");
 				}
 			
-		//}else{
-		//	echo "Error: ". $sql . "<br>" .mysqli_error($mysqli);
-		//}
+		}else{
+			echo "Error: ". $sql . "<br>" .mysqli_error($mysqli);
+		}
 	}
 ?>
 
