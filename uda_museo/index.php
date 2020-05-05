@@ -45,15 +45,25 @@ session_start();
                     <li class="nav-item">
                         <a class="nav-link js-scroll-trigger" href="#events">eventi e mostre</a>
                     </li>
-                    <li class="dropdown nav-item">
-                        <a class="nav-link" data-toggle="dropdown"><!--mettere il nome se loggato-->
-                            <i class="fa fa-user"></i><i class="fa fa-angle-down"></i></a>
-                        <ul class="dropdown-menu" id="dropdown">
-                            <li><a class="nav-link-drop" href="#">account</a></li><!--da visualizzare se loggato, sia per utente che amministratore-->
-                            <li ><a class="nav-link-drop" href="#">acquisti</a></li><!--da visualizzare se loggato, sia per utente che amministratore-->
-                            <li ><a class="nav-link-drop" href="#">gestisci</a></li> <!--da vedere se loggato da amministratore-->
-                        </ul>
-                    </li>
+					<?php
+						if(true){
+							//non è loggato
+							echo "<li class='dropdown nav-item'>";
+								echo "<a class='nav-link' href='sito/php/login.php'>";
+									echo "<i class='fa fa-user'></i></a>";
+						}else{
+							//è loggato
+							echo "<li class='dropdown nav-item'>";
+								echo "<a class='nav-link' data-toggle='dropdown'>";//<!--mettere il nome se loggato-->
+									echo "<i class='fa fa-user'></i><i class='fa fa-angle-down'></i></a>";
+								echo "<ul class='dropdown-menu' id='dropdown'>";
+									echo "<li><a class='nav-link-drop' href='#'>account</a></li>";//<!--da visualizzare se loggato, sia per utente che amministratore-->
+									echo "<li ><a class='nav-link-drop' href='#'>acquisti</a></li>";//<!--da visualizzare se loggato, sia per utente che amministratore-->
+									echo "<li ><a class='nav-link-drop' href='#'>gestisci</a></li>";//<!--da vedere se loggato da amministratore-->
+								echo "</ul>";
+							echo "</li>";
+						}
+					?>
                     <li class="nav-item">
                         <a class="nav-link js-scroll-trigger" href="#">
                             <i class="fa fa-shopping-cart"></i></a>

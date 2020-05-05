@@ -5,7 +5,7 @@
 	session_start();
 	include("conndb.php");
 	//connessionedb
-	if(!isset($_POST['email']) && !isset($_POST['psw'])){
+	if(!(isset($_POST['email']) && isset($_POST['psw']))){
 	//form login
 	echo "<form action=\"login.php\" method=\"POST\">
 		Email :  <input type=\"email\" name = \"email\" placeholder=\"Inserici la tua email\" required /><br><br>
@@ -15,7 +15,7 @@
 		<input type=\"reset\" name=\"cancella\" value=\"Reset\" /> <br><br>
 		</form>";
 		//controllo per pagina precedente causa password o email errati
-		if(strstr($_SERVER['HTTP_REFERER'],"login.php") )){
+		if(strstr($_SERVER['HTTP_REFERER'],"login.php") ){
 		echo "email o password errati, riprova";	
 	}
 	}else{
@@ -23,22 +23,22 @@
 		$email=$_POST['email'];
 		$password=sha1($_POST['psw']);
 		//sql login
-		$sql="select * from visitatore where email='$email' AND pwd='$password'";
+		$sql="select * from utente where email=\"$email\" AND pwd=\"$password\";";
 		$query = mysqli_query($mysqli,$sql);
 		//controllo errori
-		if($query){
+		//if($query){
 			//controllo corrispondenza password e email
 			if(mysqli_num_rows($query)>0){
 				$_SESSION['email']=$email;
 				$_SESSION['password']=$password;
-				header("location: index.php"); 
+				header("location: ../../index.php"); 
 			}else{
 					header("location: login.php");
 				}
 			
-		}else{
-			echo "Error: ". $sql . "<br>" .mysqli_error($mysqli);
-		}
+		//}else{
+		//	echo "Error: ". $sql . "<br>" .mysqli_error($mysqli);
+		//}
 	}
 ?>
 
