@@ -58,7 +58,7 @@ session_start();
 									echo "<i class='fa fa-user'>".$_SESSION['nome']."</i><i class='fa fa-angle-down'></i></a>";
 								echo "<ul class='dropdown-menu' id='dropdown'>";
 									echo "<li><a class='nav-link-drop' href='#'>account</a></li>";//<!--da visualizzare se loggato, sia per utente che amministratore-->
-									echo "<li ><a class='nav-link-drop' href='riepilogo e reg biglietti.php'>acquisti</a></li>";//<!--da visualizzare se loggato, sia per utente che amministratore-->
+									echo "<li ><a class='nav-link-drop' href='sito/php/bigliettiUtente.php'>acquisti</a></li>";//<!--da visualizzare se loggato, sia per utente che amministratore-->
 									if($_SESSION['amministratore']){
 										echo "<li ><a class='nav-link-drop' href='#'>gestisci</a></li>";//<!--da vedere se loggato da amministratore-->
 									}
