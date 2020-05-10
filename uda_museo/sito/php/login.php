@@ -15,7 +15,7 @@
 		<input type=\"reset\" name=\"cancella\" value=\"Reset\" /> <br><br>
 		</form>";
 		//controllo per pagina precedente causa password o email errati
-		if(strstr($_SERVER['HTTP_REFERER'],"login.php") )){
+		if(strstr($_SERVER['HTTP_REFERER'],"login.php") ){
 		echo "email o password errati, riprova";	
 	}
 	}else{
@@ -31,6 +31,25 @@
 			if(mysqli_num_rows($query)>0){
 				$_SESSION['email']=$email;
 				$_SESSION['password']=$password;
+				$sql2="select * from AMMINISTRATORE where email='$email'";
+				$query2 = mysqli_query($mysqli,$sql2);
+				if($query2){
+					if(mysqli_num_rows($query2)>0) {
+						
+						//loggato come amministratore
+						while($riga=mysqli_fetch_array($query2)){
+						$_SESSION['amministratore']=true;
+						$_SESSION['mansione']=$riga['mansione'];
+					}
+						
+				}else{
+					//loggato come utente visitatore
+					$_SESSION['amministratore']=false;
+					$_SESSION['mansione']=0;
+				}
+			}else{
+			echo "Error: ". $sql . "<br>" .mysqli_error($mysqli);
+		}
 				header("location: index.php"); 
 			}else{
 					header("location: login.php");

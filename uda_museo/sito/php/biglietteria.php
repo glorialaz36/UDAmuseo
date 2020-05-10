@@ -4,6 +4,7 @@ session_start();
 include("conndb.php");
 //ramificazione del flusso	
 if(!isset($_POST['eventi']) && !isset($_POST['nBiglietti']) ){
+		echo $_SESSION['amministratore'];
 	//primo ramo . Inserimento dati 
 echo "<form action=\"biglietteria.php\" method=\"POST\">
 		Numero di Biglietti:<input type=\"number\" name=\"nBiglietti\" min=\"1\" max=\"40\"><br><br>
