@@ -46,7 +46,10 @@
 		header("location: register.php");
 	}
 }
-	
+	echo "<li class='dropdown nav-item'>";
+		echo "<a class='nav-link' href='login.php'>";
+			echo "<i>register</i>Hai già un account? Login</a>";
+	echo "</li>";
 ?>
 <script>
 	//script per rendere visibile o meno la password mentre la si inserisce
