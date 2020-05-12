@@ -31,7 +31,7 @@
 					//loggato come utente visitatore
 					$_SESSION['amministratore']=false;
 					$_SESSION['mansione']=0;
-				header("location: index.php"); 
+				header("location: ../../index.php"); 
 			}
 			}else{
 					"errore sconosciuto";
