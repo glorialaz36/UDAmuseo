@@ -3,8 +3,8 @@
 session_start();
 include("conndb.php");
 //ramificazione del flusso	
+if(isset($_SESSION["email"])){
 if(!isset($_POST['eventi']) && !isset($_POST['nBiglietti']) ){
-		echo $_SESSION['amministratore'];
 	//primo ramo . Inserimento dati 
 echo "<form action=\"biglietteria.php\" method=\"POST\">
 		Numero di Biglietti:<input type=\"number\" name=\"nBiglietti\" min=\"1\" max=\"40\"><br><br>
@@ -16,7 +16,12 @@ echo "<form action=\"biglietteria.php\" method=\"POST\">
 			//esito positivo
 			//while per creazione menu a tendina con gli eventi diponibili
 			while($cicle=mysqli_fetch_array($query)){
+				$dataAdesso=strtotime("now");
+				$strdataEvento=$cicle['dataFin'];
+				$DataEvento=strtotime("$strdataEvento");
+				if($dataAdesso<=$DataEvento){
 				echo "<option value=".$cicle['titolo'].">".$cicle['titolo']."</option>";
+			}
 			}
 			
 	}else{
@@ -62,7 +67,10 @@ echo "<form action=\"biglietteria.php\" method=\"POST\">
 	$_SESSION['eventi']=$_POST['eventi'];
 	$_SESSION['accessori']=$_POST['accessori'];
 	header("location: riepilogo e reg biglietti.php");
-}   
+}  
+}else{
+	header("location:index.php ");
+}
 ?>
 
 
