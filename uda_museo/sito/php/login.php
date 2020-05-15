@@ -26,6 +26,8 @@
     <link href="../css/other.css" rel="stylesheet">
     <!--<link href="http://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">-->
 
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <body id="page-top">
     
@@ -76,54 +78,38 @@
             </div>
         </div>
     </nav>
-    
+
     <div class="wrapper fadeInDown">
-    <div id="formContent">
+        <div id="formContent">
     <!-- Tabs Titles -->
 
     <!-- Icon -->
     <div class="fadeIn first">
-      <h2 class="h2a">ACCEDI</h2>
+      <h2> Accedi</h2>
     </div>
 
-    <!-- Login Form -->
-    <form>
-      <input type="text" id="login" class="fadeIn second" name="login" placeholder="login">
-      <input type="text" id="password" class="fadeIn third" name="login" placeholder="password">
-      <input type="submit" class="fadeIn fourth" value="Log In">
-    </form>
-
-    <!-- Remind Passowrd -->
-    <div id="formFooter">
-      <a class="underlineHover" href="#">Forgot Password?</a>
-    </div>
-
-  </div>
-</div>
-	//<?php /** 
+    <?php 
 	//connessionedb
 	if(!isset($_POST['email']) && !isset($_POST['psw'])){
-		//form login
-		echo "<form action=\"login.php\" method=\"POST\">";
-            echo "<h4 class='intereses-healding'>Email :  <input type=\"email\" name = \"email\" placeholder=\"Inserici la tua email\" required /></h4><br><br>";
-            
-			echo "<h4 class='intereses-healding'>Password :  <input type=\"password\" name = \"psw\" size =\"20\" id=myPassword placeholder=\"Inserici la password\" required /></h4>
-			<input type=\"checkbox\" onclick=\"myFunction()\">Show Password<br><br>
-			<input type=\"submit\" name=\"login\" value=\"Login\" />
-			<input type=\"reset\" name=\"cancella\" value=\"Reset\" /> <br><br>
-			</form>";
-			//controllo per pagina precedente causa password o email errati
-			if(strstr($_SERVER['HTTP_REFERER'],"login.php") ){
-			echo "email o password errati, riprova";	
-		}
-		}else{
-			//login 
-			$email=$_POST['email'];
-			$password=sha1($_POST['psw']);
-			//sql login
-			$sql="select * from UTENTE where email='$email' AND pwd='$password'";
-			$query = mysqli_query($mysqli,$sql);
-			//controllo errori
+    //Login Form 
+    echo "<form action='login.php' method='POST'>
+            <input type='email' id='email' class='fadeIn second' name='email' placeholder='Inserisci la tua e-mail'>
+            <input type='password' id='password' class='fadeIn second' name='psw' placeholder='Inserisci la tua password'> <br>
+            <input type='checkbox' class='fadeIn second' onclick='myFunction()'>Mostra password <br>
+            <input type='submit' class='fadeIn second' value='ACCEDI'>
+        </form>";
+        //controllo per pagina precedente causa password o email errati
+        if(strstr($_SERVER['HTTP_REFERER'],"login.php") ){
+            echo "email o password errati, riprova";	
+        }
+    }else{
+        //login 
+        $email=$_POST['email'];
+        $password=sha1($_POST['psw']);
+        //sql login
+        $sql="select * from UTENTE where email='$email' AND pwd='$password'";
+        $query = mysqli_query($mysqli,$sql);
+        //controllo errori
 			if($query){
 				//controllo corrispondenza password e email
 				if(mysqli_num_rows($query)>0){
@@ -158,13 +144,18 @@
 			}else{
 				echo "Error: ". $sql . "<br>" .mysqli_error($mysqli);
 			}
-		}
-		echo "<li class='dropdown nav-item'>";
-			echo "<a class='nav-link' href='register.php'>";
-				echo "<i>register</i>Non hai un account? Register</a>";
-		echo "</li>";*/
+        }
+        // link a regiatrati
+        echo "<div id='formFooter'>
+            <p>Non hai un account? <a class='underlineHover' href='register.php'>Registrati</a></p>
+        </div>
+        </div>
+    </div>";
+    
     ?>
     </div>
+
+	
     
 	 <!-- Footer -->
 	 <footer class="footer">
@@ -270,7 +261,7 @@
 <script>
 	//script per rendere visibile o meno la password mentre la si inserisce
 function myFunction() {
-  var x = document.getElementById("myPassword");
+  var x = document.getElementById("password");
   if (x.type === "password") {
     x.type = "text";
   } else {
@@ -292,5 +283,5 @@ function myFunction() {
 <!-- Custom scripts for this template -->
 <script src="../../sito/js/index.js"></script>
 
-</html>
+
 
