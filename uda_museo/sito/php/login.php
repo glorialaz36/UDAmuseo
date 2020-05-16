@@ -44,7 +44,7 @@
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav text-uppercase ml-auto">
                     <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="#events">eventi e mostre</a>
+                        <a class="nav-link js-scroll-trigger" href="../../index.php#events">eventi e mostre</a>
                     </li>
 					<?php
 						if(!isset($_SESSION['nome'])){

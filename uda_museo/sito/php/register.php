@@ -44,7 +44,7 @@
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav text-uppercase ml-auto">
                         <li class="nav-item">
-                            <a class="nav-link js-scroll-trigger" href="#events">eventi e mostre</a>
+                            <a class="nav-link js-scroll-trigger" href="../../index.php#events">eventi e mostre</a>
                         </li>
                         <?php
                             if(!isset($_SESSION['nome'])){
@@ -88,7 +88,7 @@
                 //controllo variabili non settate per esecuzione ramo del codice
                 if(!isset($_POST['nome']) && !isset($_POST['cognome']) && !isset($_POST['email']) && !isset($_POST['psw']) && !isset($_POST['categoria'])){
                     //Form per l'inserimento dei dati 
-                    echo "<form action='login.php' method='POST'>
+                    echo "<form action='register.php' method='POST'>
                     <input type='text' id='nome' class='fadeIn second' name='nome' placeholder='Inserisci il tuo nome' required>
                     <input type='text' id='cognome' class='fadeIn second' name='cognome' placeholder='Inserisci il tuo cognome' required>
                     <input type='email' id='email' class='fadeIn second' name='email' placeholder='Inserisci la tua e-mail' required>
