@@ -28,7 +28,7 @@ session_start();
 
 </head>
 <body id="page-top">
-    
+    <p>wndqesancajnescascaqsodjqasdaqsdhaosjoasjdioajdiaodiaiodjaso</p>
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
         <div class="container">
@@ -61,7 +61,7 @@ session_start();
 									echo "<li><a class='nav-link-drop' href='sito/php/account.php'>account</a></li>";
 									echo "<li ><a class='nav-link-drop' href='sito/php/bigliettiUtente.php'>acquisti</a></li>";
 									if($_SESSION['amministratore']){
-										echo "<li ><a class='nav-link-drop' href='#'>gestisci</a></li>";
+										echo "<li ><a class='nav-link-drop' href='sito/php/amministrazione.php'>gestisci</a></li>";
                                     }
                                 echo "<li><a class='nav-link-drop' href='sito/php/destroy.php'>esci</a></li>";
 								echo "</ul>";
