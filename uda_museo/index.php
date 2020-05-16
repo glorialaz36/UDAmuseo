@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!--bhoooooo-->
 <html lang="it">
 <?php
 session_start();
@@ -62,7 +61,7 @@ session_start();
 									echo "<li><a class='nav-link-drop' href='sito/php/account.php'>account</a></li>";
 									echo "<li ><a class='nav-link-drop' href='sito/php/bigliettiUtente.php'>acquisti</a></li>";
 									if($_SESSION['amministratore']){
-										echo "<li ><a class='nav-link-drop' href='#'>gestisci</a></li>";
+										echo "<li ><a class='nav-link-drop' href='sito/php/amministrazione.php'>gestisci</a></li>";
                                     }
                                 echo "<li><a class='nav-link-drop' href='sito/php/destroy.php'>esci</a></li>";
 								echo "</ul>";

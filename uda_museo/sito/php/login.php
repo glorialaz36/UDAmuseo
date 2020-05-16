@@ -282,6 +282,3 @@ function myFunction() {
 
 <!-- Custom scripts for this template -->
 <script src="../../sito/js/index.js"></script>
-
-
-
