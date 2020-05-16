@@ -1,32 +1,21 @@
     body {
         padding-top: 0em;
         overflow-x: hidden;
-        height: 70vh;
         font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-    }
-    
-    html {
-        background-color: #fff;
     }
     
     a {
-        color: #92badd;
-        display: inline-block;
-        text-decoration: none;
-        font-weight: 400;
+        color: #ff0000;
     }
     
-    .h2a {
-        font-size: 1.0em;
-        font-weight: bold;
-        padding: 0.75em 0;
-        letter-spacing: 1px;
-        color: #ff0000;
-        font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    h2 {
         text-align: center;
-        font-size: 16px;
+        font-size: 1.4em;
+        text-transform: uppercase;
         display: inline-block;
         margin: 40px 8px 10px 8px;
+        color: #ff0000;
+        font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
     }
     /* STRUCTURE */
     
@@ -41,12 +30,14 @@
     }
     
     #formContent {
+        margin-top: 170px;
+        margin-bottom: 70px;
         -webkit-border-radius: 10px 10px 10px 10px;
         border-radius: 10px 10px 10px 10px;
         background: #fff;
         padding: 30px;
         width: 90%;
-        max-width: 450px;
+        max-width: 600px;
         position: relative;
         padding: 0px;
         -webkit-box-shadow: 0 30px 60px 0 rgba(0, 0, 0, 0.3);
@@ -55,26 +46,39 @@
     }
     
     #formFooter {
-        background-color: #f6f6f6;
-        border-top: 1px solid #dce8f1;
+        background-color: #ff0000;
+        border-top: 1px solid #ff0000;
         padding: 25px;
         text-align: center;
         -webkit-border-radius: 0 0 10px 10px;
         border-radius: 0 0 10px 10px;
     }
+    
+    #formFooter p,
+    a {
+        color: #ffffff;
+    }
+    
+    #formFooter a:hover {
+        color: #ffffff;
+    }
     /* TABS */
     
     h2.inactive {
-        color: #ff0000;
+        color: #af0000;
     }
     
     h2.active {
-        color: #ffffff;
-        border-bottom: 2px solid #ff0000;
+        color: #0d0d0d;
+        border-bottom: 2px solid #af0000;
     }
     /* FORM TYPOGRAPHY*/
     
     input[type=button],
+    input[type=email],
+    input[type=password],
+    input[type=text],
+    input[type=checkbox],
     input[type=submit],
     input[type=reset] {
         background-color: #ff0000;
@@ -86,8 +90,6 @@
         display: inline-block;
         text-transform: uppercase;
         font-size: 13px;
-        -webkit-box-shadow: 0 10px 30px 0 rgba(95, 186, 233, 0.4);
-        box-shadow: 0 10px 30px 0 rgba(95, 186, 233, 0.4);
         -webkit-border-radius: 5px 5px 5px 5px;
         border-radius: 5px 5px 5px 5px;
         margin: 5px 20px 40px 20px;
@@ -101,11 +103,14 @@
     input[type=button]:hover,
     input[type=submit]:hover,
     input[type=reset]:hover {
-        background-color: #ff0000;
+        background-color: #af0000;
     }
     
     input[type=button]:active,
     input[type=submit]:active,
+    input[type=email]:active,
+    input[type=text]:active,
+    input[type=password]:active,
     input[type=reset]:active {
         -moz-transform: scale(0.95);
         -webkit-transform: scale(0.95);
@@ -114,6 +119,8 @@
         transform: scale(0.95);
     }
     
+    input[type=email],
+    input[type=password],
     input[type=text] {
         background-color: #eeeeee;
         border: none;
@@ -135,12 +142,14 @@
         border-radius: 5px 5px 5px 5px;
     }
     
-    input[type=text]:focus {
-        background-color: #eeeeee;
-        border-bottom: 2px solid #5fbae9;
+    input[type=button]:focus,
+    {
+        background-color: #fff;
+        border-bottom: 2px solid #ff0000;
     }
     
-    input[type=text]:placeholder {
+    input[type=email]:placeholder,
+    input[type=password]:placeholder {
         color: #eeeeee;
     }
     /* ANIMATIONS */
@@ -245,6 +254,12 @@
         -moz-animation-delay: 1s;
         animation-delay: 1s;
     }
+    
+    .fadeIn.fifth {
+        -webkit-animation-delay: 1.2s;
+        -moz-animation-delay: 1.2s;
+        animation-delay: 1.2s;
+    }
     /* Simple CSS3 Fade-in Animation */
     
     .underlineHover:after {
@@ -253,17 +268,14 @@
         bottom: -10px;
         width: 0;
         height: 2px;
+        color: #ffffff;
         background-color: #ff0000;
         content: "";
         transition: width 0.2s;
     }
     
-    .underlineHover:hover {
-        color: #0d0d0d;
-    }
-    
     .underlineHover:hover:after {
-        width: 100%;
+        width: 0%;
     }
     /* OTHERS */
     
@@ -277,10 +289,6 @@
     
     p {
         line-height: 1.75;
-    }
-    
-    a {
-        color: #ff0000;
     }
     
     a:hover {
