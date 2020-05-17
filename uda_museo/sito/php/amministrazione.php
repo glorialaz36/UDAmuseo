@@ -366,10 +366,10 @@ function Annulla() {
 						}
 					}
 					echo"</div>";
-			echo"</div>";
+				echo"</div>";
 
 				//tabella accessiori attualmente nel database
-				echo "<div id='subCorpo'>";;
+				echo "<div id='subCorpo'>";
 					$sql5= "select * from Accessorio";
 					$query5 = mysqli_query($mysqli,$sql5);
 							//controllo errori
@@ -544,13 +544,14 @@ function Annulla() {
 						}
 					}
 				echo"</div>";
-
+				echo "<div id='subCorpo'>";
 					//numero di biglietti venduti per data
-					echo"<div id='buttom'>
+					echo"<div id='modifica'>
 						<form id='no'>
+						<p>Scegli un data per visualizzare il numero di biglietti venduti</p>
 							<input type='date' name='giorno' min=2020-01-01 max=2024-01-01>
 								<span class='biglietti' id='biglietti'>
-						</form>
+						</form><br><br>
 					</div>
 			</div>
 		</div>";
