@@ -665,18 +665,18 @@ function Annulla() {
 </html>
 
 <!-- Bootstrap core JavaScript -->
-<script src="sito/js/jquery.js"></script>
-<script src="sito/js/bootstrap.bundle.js"></script>
+<script src="../js/jquery.js"></script>
+<script src="../js/bootstrap.bundle.js"></script>
 
 <!-- Plugin JavaScript -->
-<script src="sito/js/jquery.easing.js"></script>
+<script src="../js/jquery.easing.js"></script>
 
 <!-- Contact form JavaScript -->
 
-<script src="sito/js/contact_me.js"></script>
+<script src="../js/contact_me.js"></script>
 
 <!-- Custom scripts for this template -->
-<script src="sito/js/index.js"></script>
+<script src="../js/index.js"></script>
 	
 
 
