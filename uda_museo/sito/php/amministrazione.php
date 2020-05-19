@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<?php ob_start(); ?>
 <html lang="it">	
 <?php
 	session_start();
@@ -200,7 +201,7 @@ function Annulla() {
 												<input type='text' name='titolo' placeholder='nome evento' required \> 
 												<input type='text' name='categoria' placeholder='categoria' required \>
 												<input type='double' name='tariffa'  placeholder='tariffa' required \>
-												<input type='number' name='biglietti'  placeholder='numero biglietti' required \>
+												<input type='number' name='biglietti'  placeholder='numero biglietti' min=1 required \>
 												<p>data di inizio: </p><input type='date' name='dataIni' required \>
 												<p>data di fine: </p><input type='date' name='dataFin' required \><br><br>
 												<input type='submit' name='creaEvento' value='crea' />
@@ -258,14 +259,14 @@ function Annulla() {
 														<form action='amministrazione.php' method='POST'>
 														<h2>Modifica un evento</h2>
 														<p>seleziona l'evento da modificare: </p> <select name='eventi' required> ";
-									$sql="select * from EVENTO ";
+									$sql="select * from evento ";
 							$query = mysqli_query($mysqli,$sql);
 							//controllo esito query
 							if($query){
 								//esito positivo
 								//while per creazione menu a tendina con gli eventi diponibili
 								while($cicle=mysqli_fetch_array($query)){
-									echo "<option value=".$cicle['titolo'].">".$cicle['titolo']."</option>";
+									echo "<option value=\"".$cicle['titolo']."\">".$cicle['titolo']."</option>";
 								}
 						}else{
 							//esito egativo
@@ -294,7 +295,7 @@ function Annulla() {
 								//prendo il titolo dell'evento selezionato
 								$titolo=$_POST['eventi'];
 								//richiamo il suo record dal database 
-								$sql3= "select * from Evento where titolo='$titolo'";
+								$sql3= "select * from evento where titolo='$titolo'";
 								$query3 = mysqli_query($mysqli,$sql3);				
 								if($query3){
 								//esito positivo
@@ -366,10 +367,10 @@ function Annulla() {
 						}
 					}
 					echo"</div>";
-				echo"</div>";
+			echo"</div>";
 
 				//tabella accessiori attualmente nel database
-				echo "<div id='subCorpo'>";
+				echo "<div id='subCorpo'>";;
 					$sql5= "select * from Accessorio";
 					$query5 = mysqli_query($mysqli,$sql5);
 							//controllo errori
@@ -464,15 +465,15 @@ function Annulla() {
 												<div class='fadeIn second'>
 													<form action='amministrazione.php' method='POST'>
 													<h2>Modifica un accessorio</h2>
-													<p>seleziona l'accessorio da modificare: </p> <select name='eventi' required> ";
-									$sql7="select * from Accessorio ";
+													<p>seleziona l'accessorio da modificare: </p> <select name='accessori' required> ";
+									$sql7="select * from accessorio ";
 							$query7 = mysqli_query($mysqli,$sql7);
 							//controllo esito query
 							if($query7){
 								//esito positivo
 								//while per creazione menu a tendina con gli eventi diponibili
 								while($cicle7=mysqli_fetch_array($query7)){
-									echo "<option value=".$cicle7['descAcc'].">".$cicle7['descAcc']."</option>";
+									echo "<option value=\"".$cicle7['descAcc']."\">".$cicle7['descAcc']."</option>";
 								}
 						}else{
 							//esito egativo
@@ -544,16 +545,20 @@ function Annulla() {
 						}
 					}
 				echo"</div>";
-				echo "<div id='subCorpo'>";
+
 					//numero di biglietti venduti per data
-					echo"<div id='modifica'>
+					echo "<div id='subCorpo'>
+					<div id='modifica'>
+					
 						<form id='no'>
-						<p>Scegli un data per visualizzare il numero di biglietti venduti</p>
-							<input type='date' name='giorno' min=2020-01-01 max=2024-01-01>
+						<p>selezionando una data puoi vedere il numero di biglietti acquistati</p>
+							<input type='date' name='giorno' min=2020-01-01 max=2024-01-01 width=50><br><br>
 								<span class='biglietti' id='biglietti'>
-						</form><br><br>
+						</form>
 					</div>
-			</div>
+					</div>
+				</div><br><br>
+			
 		</div>";
 		
 		
@@ -672,6 +677,48 @@ function Annulla() {
 
 <!-- Custom scripts for this template -->
 <script src="sito/js/index.js"></script>
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	
 
 
