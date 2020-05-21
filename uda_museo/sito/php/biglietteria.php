@@ -56,7 +56,8 @@ echo "<form action=\"biglietteria.php\" method=\"POST\">
 		
 	}
 	//conclusione form 
-	echo "<br><br><input type=\"submit\" name=\"paga\" value=\"Paga\" />
+	echo "	<br><br><input type=\"submit\" name=\"carrello\" value=\"Aggiungi al carrello\" />
+			<input type=\"submit\" name=\"paga\" value=\"Paga\" />
 			<input type=\"reset\" name=\"cancella\" value=\"Reset\" /> <br><br>"; 
 }else{
 	//registrazione di tutti i dati necessari per procedere al riepilogo e al pagamento
@@ -69,7 +70,7 @@ echo "<form action=\"biglietteria.php\" method=\"POST\">
 	header("location: riepilogo e reg biglietti.php");
 }  
 }else{
-	header("location:index.php ");
+	header("location: ../../index.php");
 }
 ?>
 

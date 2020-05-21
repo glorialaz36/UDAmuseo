@@ -167,7 +167,7 @@ echo "<form action=\"riepilogo e reg biglietti.php\" method=\"POST\">";
 					if($query7){
 						
 						//esito positivo di tutte le query 
-							header("location:index.php");
+							header("location:../../index.php");
 						}else{
 							//esito egativo 2
 							//errore 

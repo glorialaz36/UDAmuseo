@@ -29,55 +29,30 @@ session_start();
 </head>
 <body id="page-top">
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
-        <div class="container">
-            <a href="#" class="navbar-brand" onmouseover="logo.src='sito/img/logo/LOGOrs.png';" onmouseout="logo.src='sito/img/logo/LOGOrc.png';">
-                <!-- Logo Image -->
-                <img id="logo" src="sito/img/logo/LOGOrc.png" onmouseover="this.src='sito/img/logo/LOGOrs.png';" onmouseout="this.src='sito/img/logo/LOGOrc.png';" width="120" alt="" class="d-inline-block align-middle mr-2">
-                <!-- Logo Text -->
-                <span id="titolo" class="text-uppercase font-weight-bold">F1 museum </span>
-            </a>
-            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">Menù <i class="fa fa-bars"></i></button>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav text-uppercase ml-auto">
-                    <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="#events">eventi e mostre</a>
-                    </li>
-					<?php
-						if(!isset($_SESSION['nome'])){
-							//non è loggato
-							echo "<li class='dropdown nav-item'>";
-                                echo "<a class='nav-link' data-toggle='dropdown'><i class='fa fa-user'></i><i class='fa fa-angle-down'></i></a>";
-								echo "<ul class='dropdown-menu' id='dropdown'>";
-									echo "<li><a class='nav-link-drop' href='sito/php/login.php'>login</a></li>";
-									echo "<li ><a class='nav-link-drop' href='sito/php/register.php'>register</a></li>";
-								echo "</ul>";
-							echo "</li>";
-						}else{
-                            //è loggato
-                            $nome=explode(' ', $_SESSION['nome']);
-                            $nom=" ".$nome[0]." ";
-							echo "<li class='dropdown nav-item'>";
-                                echo "<a class='nav-link' data-toggle='dropdown'><i class='fa fa-user'></i>".$nom."<i class='fa fa-angle-down'></i></a>";
-								echo "<ul class='dropdown-menu' id='dropdown'>";
-									echo "<li><a class='nav-link-drop' href='sito/php/account.php'>account</a></li>";
-									echo "<li ><a class='nav-link-drop' href='sito/php/bigliettiUtente.php'>acquisti</a></li>";
-									if($_SESSION['amministratore']){
-										echo "<li ><a class='nav-link-drop' href='sito/php/amministrazione.php'>gestisci</a></li>";
-                                    }
-                                echo "<li><a class='nav-link-drop' href='sito/php/destroy.php'>esci</a></li>";
-								echo "</ul>";
-							echo "</li>";
-						}
-					?>
-                    <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="#">
-                            <i class="fa fa-shopping-cart"></i></a>
-                    </li>
-                </ul>
-            </div>
+	<nav class='navbar navbar-expand-lg navbar-dark fixed-top' id='mainNav'>
+    <div class='container'>
+        <a href='#' class='navbar-brand' onmouseover='logo.src='sito/img/logo/LOGOrs.png';' onmouseout='logo.src='sito/img/logo/LOGOrc.png';'>
+            <!-- Logo Image -->
+            <img id='logo' src='sito/img/logo/LOGOrc.png' onmouseover='this.src='sito/img/logo/LOGOrs.png';' onmouseout='this.src='sito/img/logo/LOGOrc.png';' width='120' alt='' class='d-inline-block align-middle mr-2'>
+            <!-- Logo Text -->
+            <span id='titolo' class='text-uppercase font-weight-bold'>F1 museum </span>
+		</a>
+		<button class='navbar-toggler navbar-toggler-right' type='button' data-toggle='collapse' data-target='#navbarResponsive' aria-controls='navbarResponsive' aria-expanded='false' aria-label='Toggle navigation'>Menù <i class='fa fa-bars'></i></button>
+		<div class='collapse navbar-collapse' id='navbarResponsive'>
+			<ul class='navbar-nav text-uppercase ml-auto'>
+				<li class='nav-item'>
+					<a class='nav-link js-scroll-trigger' href='#events'>eventi e mostre</a>
+				</li>
+    <?php include "sito/php/navbar.php";?>
+				<li class='nav-item'>
+					<a class='nav-link js-scroll-trigger' href='#'>
+						<i class='fa fa-shopping-cart'></i>
+					</a>
+				</li>
+            </ul>
         </div>
-    </nav>
+    </div>
+</nav>
 
     <!--Carousel Wrapper-->
     <div id="video-carousel" class="carousel slide carousel-fade" data-ride="carousel">
