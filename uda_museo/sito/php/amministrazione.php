@@ -100,17 +100,17 @@ function Annulla() {
 							echo "</li>";
 						}else{
                             //è loggato
-                            $nome=explode(' ', $_SESSION['nome']);
-                            $nom=" ".$nome[0]." ";
+                            $no=explode(' ', $_SESSION['nome']);
+                            $nom=" ".$no[0]." ";
 							echo "<li class='dropdown nav-item'>";
                                 echo "<a class='nav-link' data-toggle='dropdown'><i class='fa fa-user'></i>".$nom."<i class='fa fa-angle-down'></i></a>";
 								echo "<ul class='dropdown-menu' id='dropdown'>";
-									echo "<li><a class='nav-link-drop' href='sito/php/account.php'>account</a></li>";
-									echo "<li ><a class='nav-link-drop' href='sito/php/bigliettiUtente.php'>acquisti</a></li>";
+									echo "<li><a class='nav-link-drop' href='account.php'>account</a></li>";
+									echo "<li ><a class='nav-link-drop' href='bigliettiUtente.php'>acquisti</a></li>";
 									if($_SESSION['amministratore']){
 										echo "<li ><a class='nav-link-drop' href='#'>gestisci</a></li>";
                                     }
-                                echo "<li><a class='nav-link-drop' href='sito/php/destroy.php'>esci</a></li>";
+                                echo "<li><a class='nav-link-drop' href='destroy.php'>esci</a></li>";
 								echo "</ul>";
 							echo "</li>";
 						}
@@ -207,7 +207,7 @@ function Annulla() {
 												<input type='submit' name='creaEvento' value='crea' />
 												<input type='reset' name='cancella' value='Reset' />
 												<input type='button' onclick='Annulla()' value='Annulla'>
-											</form
+											</form>
 										</div>
 									</div>
 								</div>
@@ -233,7 +233,7 @@ function Annulla() {
 								$dataIni=$appoggio;
 							}
 							//inserimento evento nel database
-						$sql2= "insert into Evento(titolo,tariffa,biglRim,catEve,dataIni,dataFin) values('$titolo',$tariffa,$biglietti,'$categoria','$dataIni','$dataFin')";
+						$sql2= "insert into evento(titolo,tariffa,biglRim,catEve,dataIni,dataFin) values('$titolo',$tariffa,$biglietti,'$categoria','$dataIni','$dataFin')";
 						$query2 = mysqli_query($mysqli,$sql2);
 								//controllo errori
 							if($query2){
@@ -427,7 +427,7 @@ function Annulla() {
 													<input type='double' min=0 name='przun' placeholder='prezzo' required><br><br>
 													<input type='submit' name='creaAccessorio' value='crea' />
 													<input type='reset' name='cancella' value='Reset' /> 
-													<input type='button' onclick='Annulla()' value='Annulla Operazione'><br><br> 
+													<input type='button' onclick='Annulla()' value='Annulla'><br><br> 
 												</form>
 											</div>
 										</div>
@@ -488,7 +488,7 @@ function Annulla() {
 													<input type='double' min=0 name='przun' placeholder='prezzo' />
 													<input type='submit' name='modificaAccessorio' value='modifica' />
 													<input type='reset' name='cancella' value='Reset' /> 
-													<input type='button' onclick='Annulla()' value='Annulla Operazione'><br><br> 
+													<input type='button' onclick='Annulla()' value='Annulla'><br><br> 
 												</form>
 											</div>
 										</div>

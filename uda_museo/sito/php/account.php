@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="it">	
+<html lang="it">
+<?php ob_start(); ?>	
 <?php
 	session_start();
     include("conndb.php");
@@ -48,13 +49,12 @@
         //script per rendere visibile o meno la nuova password mentre la si inserisce
     function myFunction() {
         var x = document.cambioPassword.myPassword;
-    
     if (x.type === "password") {
         x.type = "text";
     } else {
         x.type = "password";
     }
-        }
+    }
     </script>
     <script>
         //script per rendere visibile o meno la vecchia password mentre la si inserisce
@@ -96,17 +96,17 @@
 							echo "</li>";
 						}else{
                             //è loggato
-                            $nome=explode(' ', $_SESSION['nome']);
-                            $nom=" ".$nome[0]." ";
+                            $no=explode(' ', $_SESSION['nome']);
+                            $nom=" ".$no[0]." ";
 							echo "<li class='dropdown nav-item'>";
                                 echo "<a class='nav-link' data-toggle='dropdown'><i class='fa fa-user'></i>".$nom."<i class='fa fa-angle-down'></i></a>";
 								echo "<ul class='dropdown-menu' id='dropdown'>";
-									echo "<li><a class='nav-link-drop' href='sito/php/account.php'>account</a></li>";
-									echo "<li ><a class='nav-link-drop' href='sito/php/bigliettiUtente.php'>acquisti</a></li>";
+									echo "<li><a class='nav-link-drop' href='account.php'>account</a></li>";
+									echo "<li ><a class='nav-link-drop' href='bigliettiUtente.php'>acquisti</a></li>";
 									if($_SESSION['amministratore']){
-										echo "<li ><a class='nav-link-drop' href='#'>gestisci</a></li>";
+										echo "<li ><a class='nav-link-drop' href='amministrazione.php'>gestisci</a></li>";
                                     }
-                                echo "<li><a class='nav-link-drop' href='sito/php/destroy.php'>esci</a></li>";
+                                echo "<li><a class='nav-link-drop' href='destroy.php'>esci</a></li>";
 								echo "</ul>";
 							echo "</li>";
 						}
@@ -122,23 +122,23 @@
 
     <?php
         //riepilogo dati utente
-        echo "<div id='corpo'>";
-			echo "<div id='subCorpo'>";
-                echo "<h2>I tuoi dati <h2>";
-                echo "<p> La tua email: $email </p><br>
-                    <p>nome utente: $nome</p><br><br> ";
+        echo "<br><br><br>
+        <div id='corpo'>
+            <div id='subCorpo'>
+                <p> La tua email: $email </p>
+                <p>nome utente: $nome</p><br><br> ";
 
         if( !isset($_POST['scelta']) && !isset($_POST['nuovoNome']) && !isset($_POST['cambiaPWD'])){
         //form di scelta iniziale
-             echo "<div id='modifica'>
+             echo "<div id='formModifica'>
                 <p>Cosa vuoi modificare? </p>
-                <form action=\"account.php\" method=\"POST\">
-                    <select name=\"modifica\" required>
-                    <option value=\"password\">Modifica la password</option>
-                    <option value=\"nomeUtente\">Modifica il nome utente</option>
-                    </select>
-                    <input type=\"submit\" name=\"scelta\" value=\"Registrati\" />
-                    <input type=\"reset\" name=\"cancella\" value=\"Reset\" /><br><br>
+                <form action='account.php' method='POST'>
+                    <select name='modifica' required>
+                    <option value='password'> la password</option>
+                    <option value='nomeUtente'>il nome utente</option>
+                    </select><br><br>
+                    <input type='submit' name='scelta' value='Modifica' />
+                    <input type='reset' name='cancella' value='Reset' /><br><br>
                 </form>
             </div>";
             //risultati dalle modifiche sottostanti
@@ -164,123 +164,117 @@
         if($_SESSION['modifica']==="password"){
             if(!isset($_POST['cambiaPWD'])){
                 //form per il cambio password
-            echo"<form action=\"account.php\" method=\"POST\" name=\"cambioPassword\">
-            Vecchia password<input type='password' name =\"vecchiaPWD\" size =\"20\"  required />
-            <input type=\"checkbox\" onclick=\"myFunction2()\">Show Password<br>
-            Nuova password<input type='password' name = \"myPassword\" size =\"20\" required />
-            <input type=\"checkbox\" onclick=\"myFunction()\">Show Password<br><br>
-            <input type=\"submit\" name=\"cambiaPWD\" value=\"Cambia\" />
-            <input type=\"reset\" name=\"cancella\" value=\"Reset\" /> 
-            <input type=\"button\" onclick=\"Annulla()\" value=\"Annulla Operazione\"><br><br>
-            
-            ";
-            
-                
-            
-            
+                echo"<div id='formModifica'>
+                    <div class='wrapper fadeInDown'>
+                        <div id='formContent'>
+                            <div class='fadeIn second'>
+                                <form action='account.php' method='POST' name='cambioPassword'>
+                                    <input type='password' name ='vecchiaPWD' size ='20' placeholder='vecchia password' required />
+                                    <input type='checkbox' onclick='myFunction2()'>Show Password<br>
+                                    <input type='password' name = 'myPassword' size ='20' placeholder='nuova password' required />
+                                    <input type='checkbox' onclick='myFunction()'>Show Password<br><br>
+                                    <input type='submit' name='cambiaPWD' value='Cambia' />
+                                    <input type='reset' name='cancella' value='Reset' /> 
+                                    <input type='button' onclick='Annulla()' value='Annulla'><br><br>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>";
             }else{
                 //recupero vecchia password dal database
                 $vecchiaPassword=sha1($_POST['vecchiaPWD']);
                 $sql="select * from utente where email='$email'";
-            $query = mysqli_query($mysqli,$sql);
-            //controllo esito query
-            if($query){
-                //esito positivo
-                //
-                while($cicle=mysqli_fetch_array($query)){
-                    //controllo corrispondenza con password vecchia 
-                    if($vecchiaPassword===$cicle["pwd"]){
-                        //le password vecchie combaciano quindi inserisco quella nuova
-                        $nuovaPassword=sha1($_POST['myPassword']);
-                        $sql2="update utente set pwd='$nuovaPassword' where email='$email'";
-                        $query2 = mysqli_query($mysqli,$sql2);
-                        //controllo esito query
-                        if($query2){
-                            //successo quindi resetto le variabili di sessione utilizzate, comunico che è tutto ok e ricarico la pagina al 1 stadio
-                            $_SESSION['successo']= "Password cambiata correttamente";
-                            $_SESSION['password']=$nuovaPassword;
-                            unset($_SESSION['modifica']);
-                            unset($_SESSION['errore']);
-                        header("location:account.php");
+                $query = mysqli_query($mysqli,$sql);
+                //controllo esito query
+                if($query){
+                    //esito positivo
+                    while($cicle=mysqli_fetch_array($query)){
+                        //controllo corrispondenza con password vecchia 
+                        if($vecchiaPassword===$cicle["pwd"]){
+                            //le password vecchie combaciano quindi inserisco quella nuova
+                            $nuovaPassword=sha1($_POST['myPassword']);
+                            $sql2="update utente set pwd='$nuovaPassword' where email='$email'";
+                            $query2 = mysqli_query($mysqli,$sql2);
+                            //controllo esito query
+                            if($query2){
+                                //successo quindi resetto le variabili di sessione utilizzate, comunico che è tutto ok e ricarico la pagina al 1 stadio
+                                $_SESSION['successo']= "Password cambiata correttamente";
+                                $_SESSION['password']=$nuovaPassword;
+                                unset($_SESSION['modifica']);
+                                unset($_SESSION['errore']);
+                            header("location:account.php");
+                            }else{
+                                echo "Error: ". $sql2 . "<br>" .mysqli_error($mysqli);
+                                }
                         }else{
-                            echo "Error: ". $sql2 . "<br>" .mysqli_error($mysqli);
-                            }
-                    }else{
-                        //le password vecchie non coicidono, abort e ritorno al 1 stadio
-                        $_SESSION['errore']="Le password non coincidono! ";
-                            unset($_SESSION['modifica']);
-                            unset($_SESSION['successo']);
-                        header("location:account.php");
-                    }
+                            //le password vecchie non coicidono, abort e ritorno al 1 stadio
+                            $_SESSION['errore']="Le password non coincidono! ";
+                                unset($_SESSION['modifica']);
+                                unset($_SESSION['successo']);
+                            header("location:account.php");
+                        }
                     
                 }
         
-        }else{
-            //esito negativo query
-            //errore 
-            echo "Error: ". $sql . "<br>" .mysqli_error($mysqli);	
+            }else{
+                //esito negativo query
+                //errore 
+                echo "Error: ". $sql . "<br>" .mysqli_error($mysqli);	
+            }
         }
-    }
         
-        
-        
-        
-        
-        
-        
-            
-            
         }else{
             //ramo modifica nome utente
             if(!isset($_POST['nuovoNome'])){
                 //form cambio nome
-            echo"<form action=\"account.php\" method=\"POST\">
-            
-            Nuovo Nome<input type=\"text\" name = \"nuovoNome\" size =\"20\" placeholder=\"Inserici in nome utente\" required />
-            <input type=\"submit\" name=\"cambiaPWD\" value=\"Registrati\" />
-            <input type=\"reset\" name=\"cancella\" value=\"Reset\" /> 
-            <input type=\"button\" onclick=\"Annulla()\" value=\"Annulla Operazione\"><br><br>
-            ";
-            
-                
-            
-            
+                echo"<div id='formModifica'>
+                    <div class='wrapper fadeInDown'>
+                        <div id='formContent'>
+                            <div class='fadeIn second'>
+                                <form action='account.php' method='POST'>
+                                    <input type='text' name = 'nuovoNome' size ='20' placeholder='nuove nome ' required />
+                                    <input type='submit' name='cambiaPWD' value='Cambia' />
+                                    <input type='reset' name='cancella' value='Reset' /> 
+                                    <input type='button' onclick='Annulla()' value='Annulla'><br><br>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>";
             }else{
                 //aggiunta di 1 spazio per evitare problemi nella navbar
                 $nome=$_POST['nuovoNome']." ";
                 //query
                 $sql3="select * from utente where email='$email'";
-            $query3 = mysqli_query($mysqli,$sql3);
-            //controllo esito query
-            if($query3){
-                //esito positivo
-                //
-                while($cicle=mysqli_fetch_array($query3)){
-                    //query per il cambio del nome
-                        $sql4="update utente set nome='$nome' where email='$email'";
-                        $query4 = mysqli_query($mysqli,$sql4);
-                        //controllo esito query
-                        if($query4){
-                            //tutto ok quindi segnalo il cambio avvenuto e riporto la pagina al 1 stadio
-                            $_SESSION['successo']= "Nome cambiato correttamente";
-                            $_SESSION['nome']=$nome;
-                            unset($_SESSION['modifica']);
-                            unset($_SESSION['errore']);
-                        header("location:account.php");
-                        }else{
-                            echo "Error: ". $sql4 . "<br>" .mysqli_error($mysqli);
-                            }
+                $query3 = mysqli_query($mysqli,$sql3);
+                //controllo esito query
+                if($query3){
+                    //esito positivo
+                    //
+                    while($cicle=mysqli_fetch_array($query3)){
+                        //query per il cambio del nome
+                            $sql4="update utente set nome='$nome' where email='$email'";
+                            $query4 = mysqli_query($mysqli,$sql4);
+                            //controllo esito query
+                            if($query4){
+                                //tutto ok quindi segnalo il cambio avvenuto e riporto la pagina al 1 stadio
+                                $_SESSION['successo']= "Nome cambiato correttamente";
+                                $_SESSION['nome']=$nome;
+                                unset($_SESSION['modifica']);
+                                unset($_SESSION['errore']);
+                            header("location:account.php");
+                            }else{
+                                echo "Error: ". $sql4 . "<br>" .mysqli_error($mysqli);
+                                }
                     }
-                    
-                
-        
-        }else{
-            //esito negativo query
-            //errore 
-            echo "Error: ". $sql . "<br>" .mysqli_error($mysqli);	
-        }
-        }
-    }	
+                }else{
+                    //esito negativo query
+                    //errore 
+                    echo "Error: ". $sql . "<br>" .mysqli_error($mysqli);	
+                }
+            }
+        }	
     }
     }else{
         header("location:../../index.php");
@@ -288,9 +282,125 @@
 
         echo"</div>";
     echo"</div>";
+}
 
 ?>
+ <!-- Footer -->
+ <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm">
+                    <a href="#">
+                        <img class="img-fluid d-block mx-auto" src="../../sito/img/team/mercedes.png" alt="">
+                    </a>
+                </div>
+                <div class="col-sm">
+                    <a href="#">
+                        <img class="img-fluid d-block mx-auto" src="../../sito/img/team/ferrari.png" alt="">
+                    </a>
+                </div>
+                <div class="col-sm">
+                    <a href="#">
+                        <img class="img-fluid d-block mx-auto" src="../../sito/img/team/redbull.png" alt="">
+                    </a>
+                </div>
+                <div class="col-sm">
+                    <a href="#">
+                        <img class="img-fluid d-block mx-auto" src="../../sito/img/team/mclaren.png" alt="">
+                    </a>
+                </div>
+                <div class="col-sm">
+                    <a href="#">
+                        <img class="img-fluid d-block mx-auto" src="../../sito/img/team/renault.png" alt="">
+                    </a>
+                </div>
+                <div class="col-sm">
+                    <a href="#">
+                        <img class="img-fluid d-block mx-auto" src="../../sito/img/team/alphatauri.png" alt="">
+                    </a>
+                </div>
+                <div class="col-sm">
+                    <a href="#">
+                        <img class="img-fluid d-block mx-auto" src="../../sito/img/team/bwt.png" alt="">
+                    </a>
+                </div>
+                <div class="col-sm">
+                    <a href="#">
+                        <img class="img-fluid d-block mx-auto" src="../../sito/img/team/haas.png" alt="">
+                    </a>
+                </div>
+                <div class="col-sm">
+                    <a href="#">
+                        <img class="img-fluid d-block mx-auto" src="../../sito/img/team/williams.png" alt="">
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-distributed">
+            <div class="footer-left">
+                <div class="footer-icons">
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-google-plus-g"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-center">
+                <div>
+                    <i class="fa fa-map-marker"></i>
+                    <p><span>Via Luigi Pettinati, 46</span>35129 - Padova  </p>
+                </div>
+
+                <div>
+                    <i class="fa fa-phone"></i>
+                    <p>+39 000 000 0000</p>
+                </div>
+
+                <div>
+                    <i class="fa fa-envelope"></i>
+                    <p><a href="mailto:support@company.com">museoF1@email.it</a></p>
+                </div>
+
+			</div>
+			
+            <div class="footer-right">
+            	<div class="map">
+            	<iframe src="https://maps.google.com/maps?width=400&amp;height=300&amp;hl=en&amp;q=Via%20Luigi%20Pettinati%2C%2046%2035129%20-%20Padova%20%20+(Titolo)&amp;ie=UTF8&amp;t=p&amp;z=11&amp;iwloc=B&amp;output=embed" 
+             		frameborder="0" scrolling="no" marginheight="0" marginwidth="0">
+            	</iframe>
+            
+				</div>
+				</div>
+
+            <div class="footer-bottom">
+                <p class="section-subheading text-muted">This product includes PHP software, freely available from
+                    <a href="http://www.php.net/software/">http://www.php.net/software/</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+       
 </body>
+
+</html>
+
+</body>
+<!-- Bootstrap core JavaScript -->
+<script src="../js/jquery.js"></script>
+<script src="../js/bootstrap.bundle.js"></script>
+
+<!-- Plugin JavaScript -->
+<script src="../js/jquery.easing.js"></script>
+
+<!-- Contact form JavaScript -->
+
+<script src="../js/contact_me.js"></script>
+
+<!-- Custom scripts for this template -->
+<script src="../js/index.js"></script>
 </html>
 
 

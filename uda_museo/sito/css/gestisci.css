@@ -8,6 +8,14 @@ a {
     color: #ff0000;
 }
 
+dropdown-menu ul {
+    background: #000000;
+}
+
+#dropdown ul {
+    background: #000000;
+}
+
 #corpo {
     padding: 20px 0;
     background-color: #ffffff;
@@ -25,6 +33,12 @@ a {
     padding-right: auto;
     margin-left: auto;
     margin-right: auto;
+}
+
+#subCorpo p {
+    color: #000000;
+    text-transform: uppercase;
+    size: 0.8em;
 }
 
 #tabEvents {
