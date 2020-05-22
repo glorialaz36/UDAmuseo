@@ -3279,7 +3279,7 @@
         color: #212529;
         text-align: left;
         list-style: none;
-        background-color: trasparent;
+        /*background-color: trasparent;*/
         background-clip: padding-box;
         border: 0px solid rgba(0, 0, 0, 0.15);
         border-radius: 0.25rem;
@@ -3449,7 +3449,7 @@
         color: #212529;
         text-align: inherit;
         white-space: nowrap;
-        background-color: transparent;
+        background-color: #212529;
         border: 0;
     }
     
@@ -3458,24 +3458,26 @@
         color: #16181b;
         text-decoration: none;
         background-color: #f8f9fa;
+        background-color: #212529;
     }
     
     .dropdown-item.active,
     .dropdown-item:active {
         color: #fff;
         text-decoration: none;
-        background-color: #007bff;
+        background-color: #212529;
     }
     
     .dropdown-item.disabled,
     .dropdown-item:disabled {
         color: #6c757d;
         pointer-events: none;
-        background-color: transparent;
+        background-color: #212529;
     }
     
     .dropdown-menu.show {
         display: block;
+        background-color: #212529;
     }
     
     .dropdown-header {
@@ -4380,7 +4382,6 @@
         justify-content: space-between;
         padding: 0.5rem 1rem;
         font-size: 1.3rem;
-        background-color: transparent;
     }
     
     .navbar>.container,

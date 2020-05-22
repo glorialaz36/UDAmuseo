@@ -98,10 +98,10 @@
                             //è loggato
                             $no=explode(' ', $_SESSION['nome']);
                             $nom=" ".$no[0]." ";
-							echo "<li class='dropdown nav-item'>";
+							echo "<li class='dropdown nav-item '>";
                                 echo "<a class='nav-link' data-toggle='dropdown'><i class='fa fa-user'></i>".$nom."<i class='fa fa-angle-down'></i></a>";
 								echo "<ul class='dropdown-menu' id='dropdown'>";
-									echo "<li><a class='nav-link-drop' href='account.php'>account</a></li>";
+									echo "<li><a class='nav-link-drop' href='#'>account</a></li>";
 									echo "<li ><a class='nav-link-drop' href='bigliettiUtente.php'>acquisti</a></li>";
 									if($_SESSION['amministratore']){
 										echo "<li ><a class='nav-link-drop' href='amministrazione.php'>gestisci</a></li>";
@@ -122,7 +122,7 @@
 
     <?php
         //riepilogo dati utente
-        echo "<br><br><br>
+        echo "<br><br><br><br>
         <div id='corpo'>
             <div id='subCorpo'>
                 <p> La tua email: $email </p>
@@ -136,10 +136,10 @@
                     <select name='modifica' required>
                     <option value='password'> la password</option>
                     <option value='nomeUtente'>il nome utente</option>
-                    </select><br><br>
+                    </select><br><br><br>
                     <input type='submit' name='scelta' value='Modifica' />
                     <input type='reset' name='cancella' value='Reset' /><br><br>
-                </form>
+                </form><br><br><br><br><br><br><br><br>
             </div>";
             //risultati dalle modifiche sottostanti
             if(isset($_SESSION['errore'])){
@@ -310,47 +310,47 @@
             <div class="row">
                 <div class="col-sm">
                     <a href="#">
-                        <img class="img-fluid d-block mx-auto" src="../../sito/img/team/mercedes.png" alt="">
+                        <img class="img-fluid d-block mx-auto" src="../img/team/mercedes.png" alt="">
                     </a>
                 </div>
                 <div class="col-sm">
                     <a href="#">
-                        <img class="img-fluid d-block mx-auto" src="../../sito/img/team/ferrari.png" alt="">
+                        <img class="img-fluid d-block mx-auto" src="../img/team/ferrari.png" alt="">
                     </a>
                 </div>
                 <div class="col-sm">
                     <a href="#">
-                        <img class="img-fluid d-block mx-auto" src="../../sito/img/team/redbull.png" alt="">
+                        <img class="img-fluid d-block mx-auto" src="../img/team/redbull.png" alt="">
                     </a>
                 </div>
                 <div class="col-sm">
                     <a href="#">
-                        <img class="img-fluid d-block mx-auto" src="../../sito/img/team/mclaren.png" alt="">
+                        <img class="img-fluid d-block mx-auto" src="../img/team/mclaren.png" alt="">
                     </a>
                 </div>
                 <div class="col-sm">
                     <a href="#">
-                        <img class="img-fluid d-block mx-auto" src="../../sito/img/team/renault.png" alt="">
+                        <img class="img-fluid d-block mx-auto" src="../img/team/renault.png" alt="">
                     </a>
                 </div>
                 <div class="col-sm">
                     <a href="#">
-                        <img class="img-fluid d-block mx-auto" src="../../sito/img/team/alphatauri.png" alt="">
+                        <img class="img-fluid d-block mx-auto" src="../img/team/alphatauri.png" alt="">
                     </a>
                 </div>
                 <div class="col-sm">
                     <a href="#">
-                        <img class="img-fluid d-block mx-auto" src="../../sito/img/team/bwt.png" alt="">
+                        <img class="img-fluid d-block mx-auto" src="../img/team/bwt.png" alt="">
                     </a>
                 </div>
                 <div class="col-sm">
                     <a href="#">
-                        <img class="img-fluid d-block mx-auto" src="../../sito/img/team/haas.png" alt="">
+                        <img class="img-fluid d-block mx-auto" src="../img/team/haas.png" alt="">
                     </a>
                 </div>
                 <div class="col-sm">
                     <a href="#">
-                        <img class="img-fluid d-block mx-auto" src="../../sito/img/team/williams.png" alt="">
+                        <img class="img-fluid d-block mx-auto" src="../img/team/williams.png" alt="">
                     </a>
                 </div>
             </div>

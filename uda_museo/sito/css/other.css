@@ -384,6 +384,14 @@
         box-shadow: 0 0 0 0.2rem rgba(254, 209, 55, 0.5) !important;
     }
     
+    .dropdown-menu {
+        background-color: #212529;
+    }
+    
+    #dropdown {
+        background-color: #212529;
+    }
+    
     #mainNav {
         background-color: #212529;
     }
@@ -446,7 +454,7 @@
         color: #af0000;
     }
     
-    .dropdown-dark {
+    #mainNav .container .collapse .navbar-nav .dropdown li {
         background-color: #212529;
     }
     

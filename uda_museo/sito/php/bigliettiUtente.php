@@ -42,7 +42,7 @@
         <div class="container">
             <a href="../../index.php" class="navbar-brand" onmouseover="logo.src='../img/logo/LOGOrs.png';" onmouseout="logo.src='../img/logo/LOGOrc.png';">
                 <!-- Logo Image -->
-                <img id="logo" src="..//img/logo/LOGOrc.png" onmouseover="this.src='../img/logo/LOGOrs.png';" onmouseout="this.src='../img/logo/LOGOrc.png';" width="120" alt="" class="d-inline-block align-middle mr-2">
+                <img id="logo" src="../img/logo/LOGOrc.png" onmouseover="this.src='../img/logo/LOGOrs.png';" onmouseout="this.src='../img/logo/LOGOrc.png';" width="120" alt="" class="d-inline-block align-middle mr-2">
                 <!-- Logo Text -->
                 <span id="titolo" class="text-uppercase font-weight-bold">F1 museum </span>
             </a>
@@ -66,12 +66,12 @@
 							echo "<li class='dropdown nav-item'>";
                                 echo "<a class='nav-link' data-toggle='dropdown'><i class='fa fa-user'></i>".$nom."<i class='fa fa-angle-down'></i></a>";
 								echo "<ul class='dropdown-menu' id='dropdown'>";
-									echo "<li><a class='nav-link-drop' href='sito/php/account.php'>account</a></li>";
-									echo "<li ><a class='nav-link-drop' href='sito/php/bigliettiUtente.php'>acquisti</a></li>";
+									echo "<li><a class='nav-link-drop' href='account.php'>account</a></li>";
+									echo "<li ><a class='nav-link-drop' href='#'>acquisti</a></li>";
 									if($_SESSION['amministratore']){
-										echo "<li ><a class='nav-link-drop' href='#'>gestisci</a></li>";
+										echo "<li ><a class='nav-link-drop' href='amministrazione.php'>gestisci</a></li>";
                                     }
-                                echo "<li><a class='nav-link-drop' href='sito/php/destroy.php'>esci</a></li>";
+                                echo "<li><a class='nav-link-drop' href='destroy.php'>esci</a></li>";
 								echo "</ul>";
 							echo "</li>";
 						}
@@ -86,27 +86,62 @@
     </nav>
 	
 	<?php
-	echo"<h2>Biglietti acquistati:<h2>";
-		$sql="SELECT dataVal, descCat, titolo
+     echo"<div id='corpo'>
+        <div id='subCorpo'>
+       <br><br><h2>Biglietti acquistati</h2><br>";
+		$sql="SELECT codBig, dataVal, titolo, tariffa, descCat, sconto
+				FROM biglietto join evento on Eve=codEve join categoria on catBig=codCat 
+                WHERE vis = \"".$_SESSION['email']."\";";
+        /*$sql="SELECT dataVal, descCat, titolo
 				FROM biglietto, categoria, evento
-				WHERE Eve = codEve AND catBig = codCat AND vis = \"".$_SESSION['email']."\";";
+				WHERE Eve = codEve AND catBig = codCat AND vis = \"".$_SESSION['email']."\";";*/
 		$result = $mysqli -> query($sql);
 		//controllo esito query
 		if($result){
-			//esito positivo
-			echo "<table><tr>
-				<td>Data acquisto</td>
-				<td>Evento</td>
-				<td>Categoria</td>
-			</tr>";
-				while($row = $result -> fetch_assoc()){
-					echo "<tr>
-						<td>".$row['dataVal']."</td>
-						<td>".$row['titolo']."</td>
-						<td>".$row['descCat']."</td>
-					</tr>";
-				}
-			echo "</table>";
+            if($result->num_rows>0){
+                    //esito positivo
+                    echo "<table id='tabBig' class='table table-bordered'><tr>
+                        <th>Data acquisto</th>
+                        <th>Evento</th>
+                        <th>Categoria</th>
+                        <th>Accessori</th>
+                        <th>Costo</th>
+                    </tr>";
+                        while($row = $result -> fetch_assoc()){
+                            echo "<tr>
+                                <td>".$row['dataVal']."</td>
+                                <td>".$row['titolo']."</td>
+                                <td>".$row['descCat']."</td>";
+                                
+                            $sql1="SELECT descAcc, przun 
+                            FROM accessorio join biglacc on codAcc=cAcc
+                            WHERE cBigl= \"".$row['codBig']."\";";
+                            $result1 = $mysqli -> query($sql1);
+                            $accessori= " ";
+                            $przAcc=0;
+                            if($result1->num_rows>0){
+                                while($row1 = $result1 -> fetch_array()){
+                                    $accessori= $accessori . $row1['descAcc']. " ";  
+                                    $przAcc= $przAcc + $row1['przun'];     
+                                }
+                                echo"<td>$accessori</td>";
+                            }else{
+                                 echo"<td>"."nessun accessorio"."</td>";
+                                 
+
+                            }
+                            $costo=($row['tariffa']*(1-$row['sconto']))+$przAcc;
+                            
+                            
+                            echo"<td>$costo"." €</td>
+
+                            
+                        </tr>";
+                    }
+                echo "</table>";
+            }else{
+                echo"<p>Nessun biglietto acquistato</p>";
+            }
 		}else{
 			//esito egativo
 			//errore 
@@ -116,5 +151,116 @@
 		header("location:../../index.php");
 }
 	?>
+    </div>
+</div>
+<!-- Footer -->
+<footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm">
+                    <a href="#">
+                        <img class="img-fluid d-block mx-auto" src="../img/team/mercedes.png" alt="">
+                    </a>
+                </div>
+                <div class="col-sm">
+                    <a href="#">
+                        <img class="img-fluid d-block mx-auto" src="../img/team/ferrari.png" alt="">
+                    </a>
+                </div>
+                <div class="col-sm">
+                    <a href="#">
+                        <img class="img-fluid d-block mx-auto" src="../img/team/redbull.png" alt="">
+                    </a>
+                </div>
+                <div class="col-sm">
+                    <a href="#">
+                        <img class="img-fluid d-block mx-auto" src="../img/team/mclaren.png" alt="">
+                    </a>
+                </div>
+                <div class="col-sm">
+                    <a href="#">
+                        <img class="img-fluid d-block mx-auto" src="../img/team/renault.png" alt="">
+                    </a>
+                </div>
+                <div class="col-sm">
+                    <a href="#">
+                        <img class="img-fluid d-block mx-auto" src="../img/team/alphatauri.png" alt="">
+                    </a>
+                </div>
+                <div class="col-sm">
+                    <a href="#">
+                        <img class="img-fluid d-block mx-auto" src="../img/team/bwt.png" alt="">
+                    </a>
+                </div>
+                <div class="col-sm">
+                    <a href="#">
+                        <img class="img-fluid d-block mx-auto" src="../img/team/haas.png" alt="">
+                    </a>
+                </div>
+                <div class="col-sm">
+                    <a href="#">
+                        <img class="img-fluid d-block mx-auto" src="../img/team/williams.png" alt="">
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-distributed">
+            <div class="footer-left">
+                <div class="footer-icons">
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-google-plus-g"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-center">
+                <div>
+                    <i class="fa fa-map-marker"></i>
+                    <p><span>Via Luigi Pettinati, 46</span>35129 - Padova  </p>
+                </div>
+
+                <div>
+                    <i class="fa fa-phone"></i>
+                    <p>+39 000 000 0000</p>
+                </div>
+
+                <div>
+                    <i class="fa fa-envelope"></i>
+                    <p><a href="mailto:support@company.com">museoF1@email.it</a></p>
+                </div>
+
+			</div>
+			
+            <div class="footer-right">
+            	<div class="map">
+            	<iframe src="https://maps.google.com/maps?width=400&amp;height=300&amp;hl=en&amp;q=Via%20Luigi%20Pettinati%2C%2046%2035129%20-%20Padova%20%20+(Titolo)&amp;ie=UTF8&amp;t=p&amp;z=11&amp;iwloc=B&amp;output=embed" 
+             		frameborder="0" scrolling="no" marginheight="0" marginwidth="0">
+            	</iframe>
+            
+				</div>
+				</div>
+
+            <div class="footer-bottom">
+                <p class="section-subheading text-muted">This product includes PHP software, freely available from
+                    <a href="http://www.php.net/software/">http://www.php.net/software/</a>
+                </p>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>
+<!-- Bootstrap core JavaScript -->
+<script src="../js/jquery.js"></script>
+<script src="../js/bootstrap.bundle.js"></script>
+
+<!-- Plugin JavaScript -->
+<script src="../js/jquery.easing.js"></script>
+
+<!-- Contact form JavaScript -->
+
+<script src="../js/contact_me.js"></script>
+
+<!-- Custom scripts for this template -->
+<script src="../js/index.js"></script>
