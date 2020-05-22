@@ -55,8 +55,8 @@ session_start();
 							echo "</li>";
 						}else{
                             //è loggato
-                            $nome=explode(' ', $_SESSION['nome']);
-                            $nom=" ".$nome[0]." ";
+                            $no=explode(' ', $_SESSION['nome']);
+                            $nom=" ".$no[0]." ";
 							echo "<li class='dropdown nav-item'>";
                                 echo "<a class='nav-link' data-toggle='dropdown'><i class='fa fa-user'></i>".$nom."<i class='fa fa-angle-down'></i></a>";
 								echo "<ul class='dropdown-menu' id='dropdown'>";
