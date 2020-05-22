@@ -146,11 +146,18 @@
                 $errore=$_SESSION['errore'];
             echo "$errore";
         }
-            
             if(isset($_SESSION['successo'])){
                 $succ=$_SESSION['successo'];
                 echo "$succ";
             }
+            
+            if(isset($_SESSION['erroreInput'])){
+				$app=$_SESSION['erroreInput'];
+				echo "$app";
+				unset($_SESSION['erroreInput']);
+			}
+			
+			
             //ripuliamo le variabili per il ricaricamento della pagina senza risultati fasulli per annullamento dell'operazione
             unset($_SESSION['successo']);
             unset($_SESSION['errore']);
@@ -242,9 +249,14 @@
                         </div>
                     </div>
                 </div>";
+                
+
+								
+								
             }else{
                 //aggiunta di 1 spazio per evitare problemi nella navbar
-                $nome=$_POST['nuovoNome']." ";
+                $nome=mysqli_real_escape_string($mysqli,$_POST['nuovoNome']." ");
+                if(!strstr($nome, "delete") && !strstr($nome, "update") && !strstr($nome, "create") && !strstr($nome, "drop")){
                 //query
                 $sql3="select * from utente where email='$email'";
                 $query3 = mysqli_query($mysqli,$sql3);
@@ -273,9 +285,16 @@
                     //errore 
                     echo "Error: ". $sql . "<br>" .mysqli_error($mysqli);	
                 }
+					}else{
+							$_SESSION['erroreInput']="carattere in input non valido";
+							header("location:account.php");
+						}
+						
+				}
             }
+					
         }	
-    }
+    
     }else{
         header("location:../../index.php");
     }

@@ -98,11 +98,20 @@
                     <input type='reset' class='fadeIn fifth' value='CANCELLA'>
                     </form>";
                     if(strstr($_SERVER['HTTP_REFERER'],"register.php") ){
-                    echo "email già utilizzata";	
+						  if(isset($_SESSION['erroreInput'])){
+								$app=$_SESSION['erroreInput'];
+								echo "$app";
+								unset($_SESSION['erroreInput']);
+					}else{
+                    echo "email già utilizzata";
+				}	
                     }
+
                 }else{
                     //secondo ramo. Controllo dati e registrazione sul database
-                    $nome=$_POST['nome']. " " .$_POST['cognome'] ;
+                    $prova=$_POST['nome']. " " .$_POST['cognome'];
+                    $nome=mysqli_real_escape_string($mysqli,$prova);
+                    if(!strstr($nome, "delete") && !strstr($nome, "update") && !strstr($nome, "alter") && !strstr($nome, "create") && !strstr($nome, "drop")){
                     $email=$_POST['email'];
                     //criptazione password
                     $password=sha1($_POST['psw']);
@@ -119,9 +128,15 @@
                 }else{
                     //esito negativo, errore e ripetizione dell'inserimento dei dati
                     echo "Error: ". $sql . "<br>" .mysqli_error($mysqli);
-                    header("location: register.php");
+                    //header("location: register.php");
                 }
-                }
+                }else{
+					
+					
+					$_SESSION['erroreInput']="carattere di input non valido";
+					header("location:register.php");
+				}
+			}
                 // link a regiatrati
                 echo "<div id='formFooter'>
                     <p>Hai già un account? <a class='underlineHover' href='login.php'>Accedi</a></p>
