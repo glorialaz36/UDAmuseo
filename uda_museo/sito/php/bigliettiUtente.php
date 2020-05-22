@@ -9,11 +9,6 @@
                     $email=$_SESSION['email'];
                     $nome=$_SESSION['nome'];
                     $password=$_SESSION['password'];
-    include("conndb.php");
-    if(isset($_SESSION['email']) && isset($_SESSION['nome']) && isset($_SESSION['password'])){
-                    $email=$_SESSION['email'];
-                    $nome=$_SESSION['nome'];
-                    $password=$_SESSION['password'];
 ?>
 <head>
     <meta charset="utf-8">
@@ -117,6 +112,9 @@
 			//errore 
 			echo "Error: ". $sql . "<br>" .mysqli_error($mysqli);
 		}
+	}else{
+		header("location:../../index.php");
+}
 	?>
 </body>
 </html>
