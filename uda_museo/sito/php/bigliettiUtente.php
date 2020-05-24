@@ -147,6 +147,59 @@
 			//errore 
 			echo "Error: ". $sql . "<br>" .mysqli_error($mysqli);
 		}
+		if(!isset($_POST['bigiettoElimina']) && !isset($_POST['submit'])){
+			
+		echo" <form action='bigliettiUtente.php' method='POST'><br><br>
+		Vuoi annullare una transazione ?<br>
+		<p>seleziona il biglietto corrispondente e annullala in un instante:  <select name='bigliettoElimina' required>";
+				$sql="select codBig,titolo,descCat,dataVal FROM biglietto join evento on Eve=codEve join categoria on catBig=codCat where vis='$email' order by codBig";
+							$query = mysqli_query($mysqli,$sql);
+							//controllo esito query
+							if($query){
+								//esito positivo
+								//while per creazione menu a tendina con gli eventi diponibili
+								while($cicle=mysqli_fetch_array($query)){
+									echo "<option value=".$cicle['codBig'].">".$cicle['dataVal']." ".$cicle['titolo']." " .$cicle['descCat']. "</option>";
+								}
+						}else{
+							//esito egativo
+							//errore 
+							echo "Error: ". $sql . "<br>" .mysqli_error($mysqli);
+							
+						}
+		echo "</select></p>
+			  <br><input type='submit' class='fadeIn fifth' name='submit' value='Elimina'>
+              <br>";
+              
+              if(isset($_SESSION['BigliettoEliminato'])){
+				  echo $_SESSION['BigliettoEliminato'];
+				  unset($_SESSION['BigliettoEliminato']);
+			  }
+        }else{
+			$SESSION['prova']="ci va"; 
+			$biglietto=$_POST['bigliettoElimina'];
+			$sql2="delete from biglacc where cBigl=$biglietto";
+			$query2= mysqli_query($mysqli,$sql2);
+			if($query2){
+				
+				$sql3="delete from biglietto where codBig=$biglietto";
+				$query3= mysqli_query($mysqli,$sql3);
+				if($query3){
+					$_SESSION['BigliettoEliminato']= "Transazione annullata, ricevera un rimborso a breve";
+					header("location:BigliettiUtente.php");
+				}else{
+					//esito egativo
+					//errore 
+					$_SESSION['BigliettoEliminato']="Errore irreversibile, contattare l'assistenza";
+					
+				}
+			}else{
+			//esito egativo
+			//errore 
+			$_SESSION['BigliettoEliminato']="Errore irreversibile, contattare l'assistenza";
+					
+			}
+		} 
 	}else{
 		header("location:../../index.php");
 }
