@@ -131,6 +131,9 @@
         if( !isset($_POST['scelta']) && !isset($_POST['nuovoNome']) && !isset($_POST['cambiaPWD'])){
         //form di scelta iniziale
              echo "<div id='formModifica'>
+             <div class='wrapper fadeInDown'>
+                 <div id='formContent'>
+                     <div class='fadeIn second'>
                 <p>Cosa vuoi modificare? </p>
                 <form action='account.php' method='POST'>
                     <select name='modifica' required>
@@ -139,8 +142,11 @@
                     </select><br><br><br>
                     <input type='submit' name='scelta' value='Modifica' />
                     <input type='reset' name='cancella' value='Reset' /><br><br>
-                </form><br><br><br><br><br><br><br><br>
-            </div>";
+                </form>
+                </div>
+                </div>
+            </div>
+        </div>";
             //risultati dalle modifiche sottostanti
             if(isset($_SESSION['errore'])){
                 $errore=$_SESSION['errore'];

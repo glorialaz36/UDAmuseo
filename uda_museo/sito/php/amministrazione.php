@@ -136,7 +136,7 @@ function Annulla() {
 				echo "<div id='subCorpo'>";
 				
 							//visualizzare tutti gli eventi
-							$sql= "select * from Evento";
+							$sql= "select * from evento";
 							$query = mysqli_query($mysqli,$sql);
 							//controllo errori
 							if($query){
@@ -249,7 +249,7 @@ function Annulla() {
 								$dataIni=$appoggio;
 							}
 							//inserimento evento nel database
-						$sql2= "insert into Evento(titolo,tariffa,biglRim,catEve,dataIni,dataFin) values('$titolo',$tariffa,$biglietti,'$categoria','$dataIni','$dataFin')";
+						$sql2= "insert into evento(titolo,tariffa,biglRim,catEve,dataIni,dataFin) values('$titolo',$tariffa,$biglietti,'$categoria','$dataIni','$dataFin')";
 						$query2 = mysqli_query($mysqli,$sql2);
 								//controllo errori
 							if($query2){
@@ -414,7 +414,7 @@ function Annulla() {
 								$dataIni=$appoggio;
 							}
 							//aggiornamento dati nel database
-							$sql4= "update Evento set titolo='$titolo',tariffa=$tariffa,biglRim=$nBiglietti,catEve='$catEve',dataIni='$dataIni', dataFin='$dataFin' where codEve=$codEve";
+							$sql4= "update evento set titolo='$titolo',tariffa=$tariffa,biglRim=$nBiglietti,catEve='$catEve',dataIni='$dataIni', dataFin='$dataFin' where codEve=$codEve";
 								$query4 = mysqli_query($mysqli,$sql4);				
 								if($query4){
 								//esito positivo
@@ -436,7 +436,7 @@ function Annulla() {
 			echo"</div>";
 				//tabella accessiori attualmente nel database
 				echo "<div id='subCorpo'>";;
-					$sql5= "select * from Accessorio";
+					$sql5= "select * from accessorio";
 					$query5 = mysqli_query($mysqli,$sql5);
 							//controllo errori
 							if($query5){
@@ -587,7 +587,7 @@ function Annulla() {
 								$descAccNew=mysqli_real_escape_string($mysqli,$_POST['descAcc']);
 								if(!strstr($descAccNew,"delete") && !strstr($descAccNew,"update") && !strstr($descAccNew,"alter") && !strstr($descAccNew,"create") && !strstr($descAccNew,"drop")){
 								//richiamo il suo record dal database 
-								$sql8= "select * from Accessorio where descAcc='$descAcc'";
+								$sql8= "select * from accessorio where descAcc='$descAcc'";
 								$query8 = mysqli_query($mysqli,$sql8);				
 								if($query8){
 								//esito positivo
@@ -617,7 +617,7 @@ function Annulla() {
 						}
 						
 							//aggiornamento dati nel database
-							$sql9= "update Accessorio set descAcc='$descAccNew',przun=$przun where codAcc=$codAcc";
+							$sql9= "update accessorio set descAcc='$descAccNew',przun=$przun where codAcc=$codAcc";
 								$query9 = mysqli_query($mysqli,$sql9);				
 								if($query9){
 								//esito positivo

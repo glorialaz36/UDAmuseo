@@ -2,6 +2,7 @@
 <html lang="it">
 <?php
 session_start();
+include("sito/php/conndb.php");
 ?>
 <head>
 
@@ -25,7 +26,7 @@ session_start();
     <!-- Custom styles for this template -->
     <link href="sito/css/index.css" rel="stylesheet">
     <!--<link href="http://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">-->
-
+    
 </head>
 <body id="page-top">
     <!-- Navigation -->
@@ -219,66 +220,54 @@ session_start();
             </div>
             <div class="row">
                 <div class="row">
-                    <div class="col-sm portfolio-item">
-                        <a class="portfolio-link" data-toggle="modal" href="#nomeMostra">
-                            <div class="portfolio-hover">
-                                <div class="portfolio-hover-content">
-                                    <p>Clicca per saperne di più</p>
-                                </div>
-                            </div>
-                            <img class="img-fluid" src="sito/img/mostreGrid/general.jpg" alt="">
-                        </a>
-                        <div class="portfolio-caption">
-                            <h4>nomeMostra</h4>
-                        </div>
+                    <?php 
+                        $sql="SELECT  codEve, titolo, tariffa, catEve, dataIni, dataFin
+                            FROM evento 
+                            WHERE biglRim>1 AND (date_format(dataFin,'%Y-%m-%d') > date_format(now(),'%Y-%m-%d'))";  
+                        $result = $mysqli -> query($sql);
+                        if($result->num_rows>0){
+                            $count=0;
+                            while($row = $result -> fetch_assoc()){
+                            if($count>3){
+                                echo"</div>
+                                <div class='row'>"; 
+                                $count=0;
+                            }
+                            echo"<div class='col-sm portfolio-item'>
+                                    <a class='portfolio-link' data-toggle='modal' href=#".$row['titolo']." >
+                                        <div class='portfolio-hover'>
+                                            <div class='portfolio-hover-content'>
+                                                <p>Clicca per saperne di più</p>
+                                            </div>
+                                        </div>";
 
-                    </div>
-                    <div class="col-sm portfolio-item">
-                        <a class="portfolio-link" data-toggle="modal" href="#nomeMostra">
-                            <div class="portfolio-hover">
-                                <div class="portfolio-hover-content">
-                                    <p>Clicca per saperne di più</p>
-                                </div>
-                            </div>
-                            <img class="img-fluid" src="sito/img/mostreGrid/mechanic.jpg" alt="">
-                        </a>
-                        <div class="portfolio-caption">
-                            <h4>nomeMostra</h4>
-                        </div>
-                    </div>
-                    <div class="col-sm portfolio-item">
-                        <a class="portfolio-link" data-toggle="modal" href="#nomeMostra">
-                            <div class="portfolio-hover">
-                                <div class="portfolio-hover-content">
-                                    <p>Clicca per saperne di più</p>
-                                </div>
-                            </div>
-                            <img class="img-fluid" src="sito/img/mostreGrid/mechanic.jpg" alt="">
-                        </a>
-                        <div class="portfolio-caption">
-                            <h4>nomeMostra</h4>
-                        </div>
-                    </div>
-                    <div class="col-sm portfolio-item">
-                        <a class="portfolio-link" data-toggle="modal" href="#nomeMostra">
-                            <div class="portfolio-hover">
-                                <div class="portfolio-hover-content">
-                                    <p>Clicca per saperne di più</p>
-                                </div>
-                            </div>
-                            <img class="img-fluid" src="sito/img/mostreGrid/economy.jpg" alt="">
-                        </a>
-                        <div class="portfolio-caption">
-                            <h4>nomeMostra</h4>
-                        </div>
-                    </div>
+                                        $cat=$row['catEve'];
+                                        if($cat=="meccanica"){
+                                            echo"<img class='img-fluid' src='sito/img/mostreGrid/mechanic.jpg'>";
+                                        }else if($row['catEve']=='economia'){
+                                            echo"<img class='img-fluid' src='sito/img/mostreGrid/economy.jpg'>";
+                                        }else{
+                                            echo"<img class='img-fluid' src='sito/img/mostreGrid/general.jpg'>";
+                                        }
+                                    echo"</a>
+                                    <div class='portfolio-caption'>
+                                        <h4>".$row['titolo']."</h4>
+                                    </div>
+                                </div>";
+                                $count++;
+                            }
+                        }else{
+                            echo"<p>Nessuna mostra disponibile</p>";
+                        }
+                    ?>
                 </div>
             </div>
     </section>
 
     <!-- Portfolio Modals -->
 
-    <!-- Modal 1 -->
+    <!-- Modal 1 
+    
     <div class="portfolio-modal modal fade" id="nomeMostra" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -290,12 +279,12 @@ session_start();
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-8 mx-auto">
-                            <div class="modal-body">
+                            <div class="modal-body">-->
                                 <!-- Project Details Go Here -->
-                                <h2 class="text-uppercase">nome mostra</h2>
-                                <p class="item-intro text-muted">categorie </p>
+                                <!--<h2 class="text-uppercase">nome mostra</h2>
+                                <p class="item-intro text-muted">categorie </p>-->
                                 <!--<img class="img-fluid d-block mx-auto" src="img/portfolio/01-full.jpg" alt="">-->
-                                <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis
+                                <!--<p> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis
                                     facere nemo!</p>
                                 <ul class="list-inline">
                                     <li>Disponibile dal 27/08/2020</li>
@@ -337,7 +326,7 @@ session_start();
                 </div>
             </div>
         </div>
-    </div>
+    </div>-->
 
 
 
