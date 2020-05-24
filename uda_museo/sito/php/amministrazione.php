@@ -105,12 +105,12 @@ function Annulla() {
 							echo "<li class='dropdown nav-item'>";
                                 echo "<a class='nav-link' data-toggle='dropdown'><i class='fa fa-user'></i>".$nom."<i class='fa fa-angle-down'></i></a>";
 								echo "<ul class='dropdown-menu' id='dropdown'>";
-									echo "<li><a class='nav-link-drop' href='sito/php/account.php'>account</a></li>";
-									echo "<li ><a class='nav-link-drop' href='sito/php/bigliettiUtente.php'>acquisti</a></li>";
+									echo "<li><a class='nav-link-drop' href='account.php'>account</a></li>";
+									echo "<li ><a class='nav-link-drop' href='bigliettiUtente.php'>acquisti</a></li>";
 									if($_SESSION['amministratore']){
 										echo "<li ><a class='nav-link-drop' href='#'>gestisci</a></li>";
                                     }
-                                echo "<li><a class='nav-link-drop' href='sito/php/destroy.php'>esci</a></li>";
+                                echo "<li><a class='nav-link-drop' href='destroy.php'>esci</a></li>";
 								echo "</ul>";
 							echo "</li>";
 						}
@@ -136,7 +136,7 @@ function Annulla() {
 				echo "<div id='subCorpo'>";
 				
 							//visualizzare tutti gli eventi
-							$sql= "select * from Evento";
+							$sql= "select * from evento";
 							$query = mysqli_query($mysqli,$sql);
 							//controllo errori
 							if($query){
@@ -177,6 +177,12 @@ function Annulla() {
 							</form>	
 							</div>
 				</div>";
+				
+							if(isset($_SESSION['erroreInput'])){
+								$app=$_SESSION['erroreInput'];
+								echo "$app";
+								unset($_SESSION['erroreInput']);
+							}
 
 				
 
@@ -212,20 +218,30 @@ function Annulla() {
 									</div>
 								</div>
 							</div>";
+						if(isset($_SESSION['erroreInput'])){
+								$app=$_SESSION['erroreInput'];
+								echo "$app";
+								unset($_SESSION['erroreInput']);
+							}
 						
-						
-						}else{
+						}else {
+								$titolo=mysqli_real_escape_string($mysqli, $_POST['titolo']);
+								$tariffa=mysqli_real_escape_string($mysqli, $_POST['tariffa']);
+								$biglietti=mysqli_real_escape_string($mysqli, $_POST['biglietti']);
+								$categoria=mysqli_real_escape_string($mysqli, $_POST['categoria']);
+								if(!strstr($titolo, "delete") && !strstr($titolo, "update") && !strstr($titolo, "alter") && !strstr($titolo, "create")){
+									if(!strstr($tariffa, "delete") && !strstr($tariffa, "update") && !strstr($tariffa, "alter") && !strstr($tariffa, "create")){
+										if(!strstr($biglietti, "delete") && !strstr($biglietti, "update") && !strstr($biglietti, "alter") && !strstr($biglietti, "create")){
+											if(!strstr($categoria, "delete") && !strstr($categoria, "update") && !strstr($categoria, "alter") && !strstr($categoria, "create")){
 							//recupero variabili dal form
-							$titolo=$_POST['titolo'];
-							$tariffa=$_POST['tariffa'];
-							$biglietti=$_POST['biglietti'];
-							$categoria=$_POST['categoria'];
+							
 							$dataIni=$_POST['dataIni'];
 							$dataFin=$_POST['dataFin'];
 							//controllo correttezza date 
 							$data1=strtotime($dataIni);
 							$data2=strtotime($dataFin);
 							$appoggio="";
+							
 							if($data1>$data2){
 								// se la data di inizio è superiore a quella di fine per evitare malfunzionamenti le invertiamo
 								$appoggio=$dataFin;
@@ -233,7 +249,7 @@ function Annulla() {
 								$dataIni=$appoggio;
 							}
 							//inserimento evento nel database
-						$sql2= "insert into Evento(titolo,tariffa,biglRim,catEve,dataIni,dataFin) values('$titolo',$tariffa,$biglietti,'$categoria','$dataIni','$dataFin')";
+						$sql2= "insert into evento(titolo,tariffa,biglRim,catEve,dataIni,dataFin) values('$titolo',$tariffa,$biglietti,'$categoria','$dataIni','$dataFin')";
 						$query2 = mysqli_query($mysqli,$sql2);
 								//controllo errori
 							if($query2){
@@ -243,7 +259,25 @@ function Annulla() {
 								}else{
 									//errore
 									echo "Error: ". $sql2 . "<br>" .mysqli_error($mysqli);
-								}	
+								}
+								
+								}else{
+									
+										header("location:amministrazione.php");
+										}
+							}else{
+								$_SESSION['erroreInput']="carattere in input non valido";
+										header("location:amministrazione.php");
+										}
+						}else{
+							$_SESSION['erroreInput']="carattere in input non valido";
+										header("location:amministrazione.php");
+										}
+					}else{
+						$_SESSION['erroreInput']="carattere in input non valido";
+										header("location:amministrazione.php");
+										}
+						//qua ci vanno le altre graffe
 						}
 						
 						}else{
@@ -291,6 +325,13 @@ function Annulla() {
 								</div>
 								</div>
 						</div>";
+						
+						if(isset($_SESSION['erroreInput'])){
+								$app=$_SESSION['erroreInput'];
+								echo "$app";
+								unset($_SESSION['erroreInput']);
+							}
+							
 							}else{
 								//prendo il titolo dell'evento selezionato
 								$titolo=$_POST['eventi'];
@@ -317,18 +358,43 @@ function Annulla() {
 							
 						}
 						//controllo, per ogni singola variabile, se è necessario aggiornare il valore contenuto in essa con quello ricevuto dal form
+						
+						
+						
 						if(isset($_POST['titoloNuovo']) && $_POST['titoloNuovo']!=""){
-							$titolo=$_POST['titoloNuovo'];
+							if(!strstr($_POST['titoloNuovo'], "delete") && !strstr($_POST['titoloNuovo'], "update") && !strstr($_POST['titoloNuovo'], "alter") && !strstr($_POST['titoloNuovo'], "create") && !strstr($_POST['titoloNuovo'], "drop")){
+								$titolo=mysqli_real_escape_string($mysqli, $_POST['titoloNuovo']);
+								}else{
+									$_SESSION['erroreInput']="carattere in input non valido";
+										header("location:amministrazione.php");}
+							
 						}
-							if(isset($_POST['tariffa']) && $_POST['tariffa']!=""){	
-							$tariffa=$_POST['tariffa'];	
-								
+							if(isset($_POST['tariffa']) && $_POST['tariffa']!=""){
+								if(!strstr($_POST['tariffa'], "delete") && !strstr($_POST['tariffa'], "update") && !strstr($_POST['tariffa'], "alter") && !strstr($_POST['tariffa'], "create") && !strstr($_POST['tariffa'], "drop")){
+									$tariffa=mysqli_real_escape_string($mysqli, $_POST['tariffa']);
+										}else{
+										$_SESSION['erroreInput']="carattere in input non valido";
+										header("location:amministrazione.php");
+										}	
+					
 						}
 							if(isset($_POST['biglietti']) && $_POST['biglietti']!=""){
-							$nBiglietti=$_POST['biglietti'];
+							if(!strstr($_POST['biglietti'], "delete") && !strstr($_POST['biglietti'], "update") && !strstr($_POST['biglietti'], "alter") && !strstr($_POST['biglietti'], "create") && !strstr($_POST['biglietti'], "drop") ){
+								$tariffa=mysqli_real_escape_string($mysqli, $_POST['biglietti']);
+								}else{
+									$_SESSION['erroreInput']="carattere in input non valido";
+										header("location:amministrazione.php");
+										}
+							
 						}
 							if(isset($_POST['categoria']) && $_POST['categoria']!=""){
-							$catEve=$_POST['categoria'];
+							if(!strstr($_POST['categoria'], "delete") && !strstr($_POST['categoria'], "update") && !strstr($_POST['categoria'], "alter") && !strstr($_POST['categoria'], "create") && !strstr($_POST['categoria'], "drop")){
+								$catEve=mysqli_real_escape_string($mysqli, $_POST['categoria']);
+								}else{
+									$_SESSION['erroreInput']="carattere in input non valido";
+									header("location:amministrazione.php");
+								}
+	
 						}
 							if(isset($_POST['dataIni']) && $_POST['dataIni']!=""){
 							$dataIni=$_POST['dataIni'];
@@ -348,7 +414,7 @@ function Annulla() {
 								$dataIni=$appoggio;
 							}
 							//aggiornamento dati nel database
-							$sql4= "update Evento set titolo='$titolo',tariffa=$tariffa,biglRim=$nBiglietti,catEve='$catEve',dataIni='$dataIni', dataFin='$dataFin' where codEve=$codEve";
+							$sql4= "update evento set titolo='$titolo',tariffa=$tariffa,biglRim=$nBiglietti,catEve='$catEve',dataIni='$dataIni', dataFin='$dataFin' where codEve=$codEve";
 								$query4 = mysqli_query($mysqli,$sql4);				
 								if($query4){
 								//esito positivo
@@ -368,10 +434,9 @@ function Annulla() {
 					}
 					echo"</div>";
 			echo"</div>";
-
 				//tabella accessiori attualmente nel database
 				echo "<div id='subCorpo'>";;
-					$sql5= "select * from Accessorio";
+					$sql5= "select * from accessorio";
 					$query5 = mysqli_query($mysqli,$sql5);
 							//controllo errori
 							if($query5){
@@ -427,18 +492,26 @@ function Annulla() {
 													<input type='double' min=0 name='przun' placeholder='prezzo' required><br><br>
 													<input type='submit' name='creaAccessorio' value='crea' />
 													<input type='reset' name='cancella' value='Reset' /> 
-													<input type='button' onclick='Annulla()' value='Annulla Operazione'><br><br> 
+													<input type='button' onclick='Annulla()' value='Annulla'><br><br> 
 												</form>
 											</div>
 										</div>
 									</div>
 								</div>";
+										
+										if(isset($_SESSION['erroreInput'])){
+												$app=$_SESSION['erroreInput'];
+												echo "$app";
+										}
+								
 							
 							
 						}else{
 							//recupero variabili dal form
-							$descAcc=$_POST['descAcc'];
-							$przun=$_POST['przun'];
+							$descAcc=mysqli_real_escape_string($mysqli,$_POST['descAcc']);
+							$przun=mysqli_real_escape_string($mysqli,$_POST['przun']);
+							if(!strstr($descAcc,"delete") && !strstr($descAcc,"update") && !strstr($descAcc,"alter") && !strstr($descAcc,"drop") && !strstr($descAcc,"create") ){
+									if(!strstr($przun,"delete") && !strstr($przun,"update") && !strstr($przun,"alter") && !strstr($przun,"drop") && !strstr($przun,"create")){
 							//inserimento evento nel database
 						$sql6= "insert into accessorio (descAcc,przun) values ('$descAcc',$przun)";
 						$query6 = mysqli_query($mysqli,$sql6);
@@ -452,10 +525,20 @@ function Annulla() {
 									//errore
 									echo "Error: ". $sql6 . "<br>" .mysqli_error($mysqli);
 								}	
+								
+								}else{
+									$_SESSION['erroreInput']="carattere in input non valido";
+									header("location:amministrazione.php");
+									}
+								}else{
+									$_SESSION['erroreInput']="carattere in input non valido";
+									header("location:amministrazione.php");
+									}
+								
 						}
 						
 						}else{
-							//ramo modifica di un evento gia esistente
+							//ramo modifica di un accessorio gia esistente
 							
 								if(!isset($_POST['modificaAccessorio'])){
 									//selezione dell'evento da modificare dinamico in base agli eventi nel database
@@ -488,17 +571,23 @@ function Annulla() {
 													<input type='double' min=0 name='przun' placeholder='prezzo' />
 													<input type='submit' name='modificaAccessorio' value='modifica' />
 													<input type='reset' name='cancella' value='Reset' /> 
-													<input type='button' onclick='Annulla()' value='Annulla Operazione'><br><br> 
+													<input type='button' onclick='Annulla()' value='Annulla'><br><br> 
 												</form>
 											</div>
 										</div>
 									</div>
 								</div>";
+											if(isset($_SESSION['erroreInput'])){
+													$app=$_SESSION['erroreInput'];
+													echo "$app";
+											}
 							}else{
 								//prendo il titolo dell'evento selezionato
 								$descAcc=$_POST['accessori'];
+								$descAccNew=mysqli_real_escape_string($mysqli,$_POST['descAcc']);
+								if(!strstr($descAccNew,"delete") && !strstr($descAccNew,"update") && !strstr($descAccNew,"alter") && !strstr($descAccNew,"create") && !strstr($descAccNew,"drop")){
 								//richiamo il suo record dal database 
-								$sql8= "select * from Accessorio where descAcc='$descAcc'";
+								$sql8= "select * from accessorio where descAcc='$descAcc'";
 								$query8 = mysqli_query($mysqli,$sql8);				
 								if($query8){
 								//esito positivo
@@ -518,7 +607,9 @@ function Annulla() {
 						
 						//controllo, per ogni singola variabile, se è necessario aggiornare il valore contenuto in essa con quello ricevuto dal form
 						if(isset($_POST['descAcc']) && $_POST['descAcc']!=""){
-							$descAcc=$_POST['descAcc'];
+							$descAccNew=$_POST['descAcc'];
+						}else{
+							$descAccNew=$_POST['accessori'];
 						}
 							if(isset($_POST['przun']) && $_POST['przun']!=""){	
 							$przun=$_POST['przun'];	
@@ -526,7 +617,7 @@ function Annulla() {
 						}
 						
 							//aggiornamento dati nel database
-							$sql9= "update Accessorio set descAcc='$descAcc',przun=$przun where codAcc=$codAcc";
+							$sql9= "update accessorio set descAcc='$descAccNew',przun=$przun where codAcc=$codAcc";
 								$query9 = mysqli_query($mysqli,$sql9);				
 								if($query9){
 								//esito positivo
@@ -540,6 +631,9 @@ function Annulla() {
 							
 						}
 						
+							}else{
+								$_SESSION['erroreInput']="carattere in input non valido";
+								header("location:amministrazione.php");}
 							}
 						
 						}
@@ -560,8 +654,7 @@ function Annulla() {
 				</div><br><br>
 			
 		</div>";
-		
-		
+			
 ?>	
  <!-- Footer -->
  <footer class="footer">
@@ -569,47 +662,47 @@ function Annulla() {
             <div class="row">
                 <div class="col-sm">
                     <a href="#">
-                        <img class="img-fluid d-block mx-auto" src="sito/img/team/mercedes.png" alt="">
+                        <img class="img-fluid d-block mx-auto" src="../img/team/mercedes.png" alt="">
                     </a>
                 </div>
                 <div class="col-sm">
                     <a href="#">
-                        <img class="img-fluid d-block mx-auto" src="sito/img/team/ferrari.png" alt="">
+                        <img class="img-fluid d-block mx-auto" src="../img/team/ferrari.png" alt="">
                     </a>
                 </div>
                 <div class="col-sm">
                     <a href="#">
-                        <img class="img-fluid d-block mx-auto" src="sito/img/team/redbull.png" alt="">
+                        <img class="img-fluid d-block mx-auto" src="../img/team/redbull.png" alt="">
                     </a>
                 </div>
                 <div class="col-sm">
                     <a href="#">
-                        <img class="img-fluid d-block mx-auto" src="sito/img/team/mclaren.png" alt="">
+                        <img class="img-fluid d-block mx-auto" src="../img/team/mclaren.png" alt="">
                     </a>
                 </div>
                 <div class="col-sm">
                     <a href="#">
-                        <img class="img-fluid d-block mx-auto" src="sito/img/team/renault.png" alt="">
+                        <img class="img-fluid d-block mx-auto" src="../img/team/renault.png" alt="">
                     </a>
                 </div>
                 <div class="col-sm">
                     <a href="#">
-                        <img class="img-fluid d-block mx-auto" src="sito/img/team/alphatauri.png" alt="">
+                        <img class="img-fluid d-block mx-auto" src="../img/team/alphatauri.png" alt="">
                     </a>
                 </div>
                 <div class="col-sm">
                     <a href="#">
-                        <img class="img-fluid d-block mx-auto" src="sito/img/team/bwt.png" alt="">
+                        <img class="img-fluid d-block mx-auto" src="../img/team/bwt.png" alt="">
                     </a>
                 </div>
                 <div class="col-sm">
                     <a href="#">
-                        <img class="img-fluid d-block mx-auto" src="sito/img/team/haas.png" alt="">
+                        <img class="img-fluid d-block mx-auto" src="../img/team/haas.png" alt="">
                     </a>
                 </div>
                 <div class="col-sm">
                     <a href="#">
-                        <img class="img-fluid d-block mx-auto" src="sito/img/team/williams.png" alt="">
+                        <img class="img-fluid d-block mx-auto" src="../img/team/williams.png" alt="">
                     </a>
                 </div>
             </div>

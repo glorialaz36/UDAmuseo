@@ -74,10 +74,31 @@
     }
     /* FORM TYPOGRAPHY*/
     
+    input[type=password] {
+        background-color: #ff0000;
+        border: none;
+        color: white;
+        padding: 15px 80px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 13px;
+        -webkit-border-radius: 5px 5px 5px 5px;
+        border-radius: 5px 5px 5px 5px;
+        margin: 5px 20px 40px 20px;
+        -webkit-transition: all 0.3s ease-in-out;
+        -moz-transition: all 0.3s ease-in-out;
+        -ms-transition: all 0.3s ease-in-out;
+        -o-transition: all 0.3s ease-in-out;
+        transition: all 0.3s ease-in-out;
+    }
+    
     input[type=button],
     input[type=email],
-    input[type=password],
     input[type=text],
+    input[type=double],
+    input[type=date],
+    input[type=number],
     input[type=checkbox],
     input[type=submit],
     input[type=reset] {
@@ -88,7 +109,6 @@
         text-align: center;
         text-decoration: none;
         display: inline-block;
-        text-transform: uppercase;
         font-size: 13px;
         -webkit-border-radius: 5px 5px 5px 5px;
         border-radius: 5px 5px 5px 5px;

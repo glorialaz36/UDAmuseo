@@ -130,8 +130,8 @@
                         header("location: auto_login.php");
                 }else{
                     //esito negativo, errore e ripetizione dell'inserimento dei dati
-                    echo "Error: ". $sql . "<br>" .mysqli_error($mysqli);
-                    //header("location: register.php");
+                    echo "email già utilizzata";
+                    header("location: register.php");
                 }
                 }else{
 					
