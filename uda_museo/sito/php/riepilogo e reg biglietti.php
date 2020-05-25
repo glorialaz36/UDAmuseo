@@ -261,7 +261,7 @@ echo "<br><br>
 					if($query7){
 						
 						//esito positivo di tutte le query 
-							header("location:../../index.php");
+							header("location:bigliettiUtente.php");
 						}else{
 							//esito egativo 2
 							//errore 
@@ -286,10 +286,12 @@ echo "<br><br>
 		
 }
 }else{
-	$accessori="no accessori";//modificare quando si farà il conteggio del prezzo
-}
-}
+	header("location:bigliettiUtente.php");
+		
 
+
+}
+	}
 
 	
 }	

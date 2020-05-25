@@ -204,31 +204,31 @@
 									if($query3){
 									
 										$_SESSION['BigliettoEliminato']= "Transazione annullata, ricevera un rimborso a breve ";
-										header("location:BigliettiUtente.php");
+										header("location:bigliettiUtente.php");
 										
 									}else{
 										//esito egativo
 										//errore 
 										$_SESSION['BigliettoEliminato']="Errore irreversibile, contattare l'assistenza 4";
-										header("location:BigliettiUtente.php");  
+										header("location:bigliettiUtente.php");  
 									}
 										
 								}else{
 									$_SESSION['BigliettoEliminato']=$_SESSION['BigliettoEliminato'].$nBiglietti.$titoloEvento;
 									//"Errore irreversibile, contattare l'assistenza 2";
-									header("location:BigliettiUtente.php");
+									header("location:bigliettiUtente.php");
 								}
 								
 							}else{
 								$_SESSION['BigliettoEliminato']="Errore irreversibile, contattare l'assistenza 3";
-								header("location:BigliettiUtente.php");
+								header("location:bigliettiUtente.php");
 							}    
                         
                     }else{
 						//esito egativo
 						//errore 
 						$_SESSION['BigliettoEliminato']="Errore irreversibile, contattare l'assistenza 5";
-						header("location:BigliettiUtente.php");
+						header("location:bigliettiUtente.php");
                             
                     }
                 } 

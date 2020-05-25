@@ -132,7 +132,7 @@ function Annulla() {
 		if(($_SESSION['amministratore']==0) && ($_SESSION['mansione']==0)){
 			header("location:index.php");
 		}
-		echo "<div id='corpo'>";
+		echo "<br><div id='corpo'>";
 				echo "<div id='subCorpo'>";
 				
 							//visualizzare tutti gli eventi
@@ -770,88 +770,3 @@ function Annulla() {
 
 <!-- Custom scripts for this template -->
 <script src="../js/index.js"></script>
-	
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	
-		
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	
-		
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
->>>>>>> 61d1f6329216cf3ceadc9518716edbec9552f08e
