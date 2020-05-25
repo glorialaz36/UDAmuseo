@@ -66,7 +66,7 @@
 									echo "<li><a class='nav-link-drop' href='account.php'>account</a></li>";
 									echo "<li ><a class='nav-link-drop' href='bigliettiUtente.php'>acquisti</a></li>";
 									if($_SESSION['amministratore']){
-										echo "<li ><a class='nav-link-drop' href='#'>gestisci</a></li>";
+										echo "<li ><a class='nav-link-drop' href='amministrazione.php'>gestisci</a></li>";
                                     }
                                 echo "<li><a class='nav-link-drop' href='destroy.php'>esci</a></li>";
 								echo "</ul>";
