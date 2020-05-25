@@ -176,12 +176,16 @@ function Annulla() {
 								<input type='reset' name='cancella' value='Reset' /> <br><br> 
 							</form>	
 							</div>
-				</div>";				
+				</div>";
+				
 							if(isset($_SESSION['erroreInput'])){
 								$app=$_SESSION['erroreInput'];
 								echo "$app";
 								unset($_SESSION['erroreInput']);
 							}
+
+				
+
 					//preparazione variabile di sessione per biforcazione al ricaricamento della pagina
 					if(isset($_POST['Evento'])){
 						$_SESSION['Evento']=$_POST['Evento'];
@@ -230,12 +234,14 @@ function Annulla() {
 										if(!strstr($biglietti, "delete") && !strstr($biglietti, "update") && !strstr($biglietti, "alter") && !strstr($biglietti, "create")){
 											if(!strstr($categoria, "delete") && !strstr($categoria, "update") && !strstr($categoria, "alter") && !strstr($categoria, "create")){
 							//recupero variabili dal form
+							
 							$dataIni=$_POST['dataIni'];
 							$dataFin=$_POST['dataFin'];
 							//controllo correttezza date 
 							$data1=strtotime($dataIni);
 							$data2=strtotime($dataFin);
 							$appoggio="";
+							
 							if($data1>$data2){
 								// se la data di inizio è superiore a quella di fine per evitare malfunzionamenti le invertiamo
 								$appoggio=$dataFin;
@@ -319,11 +325,13 @@ function Annulla() {
 								</div>
 								</div>
 						</div>";
+						
 						if(isset($_SESSION['erroreInput'])){
 								$app=$_SESSION['erroreInput'];
 								echo "$app";
 								unset($_SESSION['erroreInput']);
 							}
+							
 							}else{
 								//prendo il titolo dell'evento selezionato
 								$titolo=$_POST['eventi'];
@@ -350,6 +358,9 @@ function Annulla() {
 							
 						}
 						//controllo, per ogni singola variabile, se è necessario aggiornare il valore contenuto in essa con quello ricevuto dal form
+						
+						
+						
 						if(isset($_POST['titoloNuovo']) && $_POST['titoloNuovo']!=""){
 							if(!strstr($_POST['titoloNuovo'], "delete") && !strstr($_POST['titoloNuovo'], "update") && !strstr($_POST['titoloNuovo'], "alter") && !strstr($_POST['titoloNuovo'], "create") && !strstr($_POST['titoloNuovo'], "drop")){
 								$titolo=mysqli_real_escape_string($mysqli, $_POST['titoloNuovo']);
@@ -383,6 +394,7 @@ function Annulla() {
 									$_SESSION['erroreInput']="carattere in input non valido";
 									header("location:amministrazione.php");
 								}
+	
 						}
 							if(isset($_POST['dataIni']) && $_POST['dataIni']!=""){
 							$dataIni=$_POST['dataIni'];
@@ -486,10 +498,14 @@ function Annulla() {
 										</div>
 									</div>
 								</div>";
+										
 										if(isset($_SESSION['erroreInput'])){
 												$app=$_SESSION['erroreInput'];
 												echo "$app";
 										}
+								
+							
+							
 						}else{
 							//recupero variabili dal form
 							$descAcc=mysqli_real_escape_string($mysqli,$_POST['descAcc']);
@@ -509,6 +525,7 @@ function Annulla() {
 									//errore
 									echo "Error: ". $sql6 . "<br>" .mysqli_error($mysqli);
 								}	
+								
 								}else{
 									$_SESSION['erroreInput']="carattere in input non valido";
 									header("location:amministrazione.php");
@@ -553,7 +570,7 @@ function Annulla() {
 													<input type='text' name='descAcc' placeholder='nome accessorio'  />
 													<input type='double' min=0 name='przun' placeholder='prezzo' />
 													<input type='submit' name='modificaAccessorio' value='modifica' />
-													<input type='reset' name='cancella' value='Reset' />
+													<input type='reset' name='cancella' value='Reset' /> 
 													<input type='button' onclick='Annulla()' value='Annulla'><br><br> 
 												</form>
 											</div>
@@ -613,6 +630,7 @@ function Annulla() {
 							echo "Error: ". $sql9 . "<br>" .mysqli_error($mysqli);
 							
 						}
+						
 							}else{
 								$_SESSION['erroreInput']="carattere in input non valido";
 								header("location:amministrazione.php");}
@@ -636,6 +654,7 @@ function Annulla() {
 				</div><br><br>
 			
 		</div>";
+			
 ?>	
  <!-- Footer -->
  <footer class="footer">
