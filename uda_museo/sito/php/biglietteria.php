@@ -94,7 +94,7 @@ if(!isset($_POST['eventi']) && !isset($_POST['nBiglietti']) ){
 				<div id='formContent'>
 					<div class='fadeIn second'>
 						<form action=\"biglietteria.php\" method=\"POST\"><br>
-							Numero di Biglietti:<input type=\"number\" name=\"nBiglietti\" min=\"1\" max=\"40\"><br><br>
+							<input type=\"number\" name=\"nBiglietti\" min=\"1\" max=\"40\" placeholder=\"Numero di Biglietti\"><br><br>
 							Eventi : <select name=\"eventi\" required>z
 						</form>";
 		$sql="select * from EVENTO ";
