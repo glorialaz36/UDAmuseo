@@ -36,7 +36,7 @@
         <div class="container">
             <a href="../../index.php" class="navbar-brand" onmouseover="logo.src='../img/logo/LOGOrs.png';" onmouseout="logo.src='../img/logo/LOGOrc.png';">
                 <!-- Logo Image -->
-                <img id="logo" src="..//img/logo/LOGOrc.png" onmouseover="this.src='../img/logo/LOGOrs.png';" onmouseout="this.src='../img/logo/LOGOrc.png';" width="120" alt="" class="d-inline-block align-middle mr-2">
+                <img id="logo" src="../img/logo/LOGOrc.png" onmouseover="this.src='../img/logo/LOGOrs.png';" onmouseout="this.src='../img/logo/LOGOrc.png';" width="120" alt="" class="d-inline-block align-middle mr-2">
                 <!-- Logo Text -->
                 <span id="titolo" class="text-uppercase font-weight-bold">F1 museum </span>
             </a>
@@ -49,26 +49,26 @@
 					<?php
 						if(!isset($_SESSION['nome'])){
 							//non è loggato
-							echo "<li class='dropdown nav-item'>";
-                                echo "<a class='nav-link' data-toggle='dropdown'><i class='fa fa-user'></i><i class='fa fa-angle-down'></i></a>";
-								echo "<ul class='dropdown-menu' id='dropdown'>";
-									echo "<li><a class='nav-link-drop' href='sito/php/login.php'>login</a></li>";
-									echo "<li ><a class='nav-link-drop' href='sito/php/register.php'>register</a></li>";
-								echo "</ul>";
+							echo "<li id='dropdown-dark' class='dropdown nav-item'>";
+                echo "<a class='nav-link' data-toggle='dropdown'><i class='fa fa-user'></i><i class='fa fa-angle-down'></i></a>";
+							  echo "<ul class='dropdown-menu' id='dropdown'>";
+						  	  echo "<li><a class='nav-link-drop' href='sito/php/login.php'>login</a></li>";
+							   echo "<li ><a class='nav-link-drop' href='sito/php/register.php'>register</a></li>";
+							  echo "</ul>";
 							echo "</li>";
 						}else{
                             //è loggato
-                            $nome=explode(' ', $_SESSION['nome']);
-                            $nom=" ".$nome[0]." ";
-							echo "<li class='dropdown nav-item'>";
+                            $no=explode(' ', $_SESSION['nome']);
+                            $nom=" ".$no[0]." ";
+							echo "<li class='dropdown dropdown-dark nav-item'>";
                                 echo "<a class='nav-link' data-toggle='dropdown'><i class='fa fa-user'></i>".$nom."<i class='fa fa-angle-down'></i></a>";
-								echo "<ul class='dropdown-menu' id='dropdown'>";
-									echo "<li><a class='nav-link-drop' href='sito/php/account.php'>account</a></li>";
-									echo "<li ><a class='nav-link-drop' href='sito/php/bigliettiUtente.php'>acquisti</a></li>";
+								echo "<ul class='dropdown-menu dropdown-dark' id='dropdown'>";
+									echo "<li><a class='nav-link-drop' href='account.php'>account</a></li>";
+									echo "<li ><a class='nav-link-drop' href='bigliettiUtente.php'>acquisti</a></li>";
 									if($_SESSION['amministratore']){
 										echo "<li ><a class='nav-link-drop' href='#'>gestisci</a></li>";
                                     }
-                                echo "<li><a class='nav-link-drop' href='sito/php/destroy.php'>esci</a></li>";
+                                echo "<li><a class='nav-link-drop' href='destroy.php'>esci</a></li>";
 								echo "</ul>";
 							echo "</li>";
 						}
@@ -110,7 +110,7 @@
         $email=$_POST['email'];
         $password=sha1($_POST['psw']);
         //sql login
-        $sql="select * from UTENTE where email='$email' AND pwd='$password'";
+        $sql="select * from utente where email='$email' AND pwd='$password'";
         $query = mysqli_query($mysqli,$sql);
         //controllo errori
 			if($query){
@@ -120,7 +120,7 @@
 					$_SESSION['email']=$email;
 					$_SESSION['nome']=$row['nome'];
 					$_SESSION['password']=$password;
-					$sql2="select * from AMMINISTRATORE where email='$email'";
+					$sql2="select * from amministratore where email='$email'";
 					$query2 = mysqli_query($mysqli,$sql2);
 					if($query2){
 						if(mysqli_num_rows($query2)>0) {
@@ -166,47 +166,47 @@
             <div class="row">
                 <div class="col-sm">
                     <a href="#">
-                        <img class="img-fluid d-block mx-auto" src="../../sito/img/team/mercedes.png" alt="">
+                        <img class="img-fluid d-block mx-auto" src="../img/team/mercedes.png" alt="">
                     </a>
                 </div>
                 <div class="col-sm">
                     <a href="#">
-                        <img class="img-fluid d-block mx-auto" src="../../sito/img/team/ferrari.png" alt="">
+                        <img class="img-fluid d-block mx-auto" src="../img/team/ferrari.png" alt="">
                     </a>
                 </div>
                 <div class="col-sm">
                     <a href="#">
-                        <img class="img-fluid d-block mx-auto" src="../../sito/img/team/redbull.png" alt="">
+                        <img class="img-fluid d-block mx-auto" src="../img/team/redbull.png" alt="">
                     </a>
                 </div>
                 <div class="col-sm">
                     <a href="#">
-                        <img class="img-fluid d-block mx-auto" src="../../sito/img/team/mclaren.png" alt="">
+                        <img class="img-fluid d-block mx-auto" src="../img/team/mclaren.png" alt="">
                     </a>
                 </div>
                 <div class="col-sm">
                     <a href="#">
-                        <img class="img-fluid d-block mx-auto" src="../../sito/img/team/renault.png" alt="">
+                        <img class="img-fluid d-block mx-auto" src="../img/team/renault.png" alt="">
                     </a>
                 </div>
                 <div class="col-sm">
                     <a href="#">
-                        <img class="img-fluid d-block mx-auto" src="../../sito/img/team/alphatauri.png" alt="">
+                        <img class="img-fluid d-block mx-auto" src="../img/team/alphatauri.png" alt="">
                     </a>
                 </div>
                 <div class="col-sm">
                     <a href="#">
-                        <img class="img-fluid d-block mx-auto" src="../../sito/img/team/bwt.png" alt="">
+                        <img class="img-fluid d-block mx-auto" src="../img/team/bwt.png" alt="">
                     </a>
                 </div>
                 <div class="col-sm">
                     <a href="#">
-                        <img class="img-fluid d-block mx-auto" src="../../sito/img/team/haas.png" alt="">
+                        <img class="img-fluid d-block mx-auto" src="../img/team/haas.png" alt="">
                     </a>
                 </div>
                 <div class="col-sm">
                     <a href="#">
-                        <img class="img-fluid d-block mx-auto" src="../../sito/img/team/williams.png" alt="">
+                        <img class="img-fluid d-block mx-auto" src="../img/team/williams.png" alt="">
                     </a>
                 </div>
             </div>
@@ -272,16 +272,16 @@ function myFunction() {
   }
 	}
 </script>
+
 <!-- Bootstrap core JavaScript -->
-<script src="../../sito/js/jquery.js"></script>
-<script src="../../sito/js/bootstrap.bundle.js"></script>
+<script src="sito/js/jquery.js"></script>
+<script src="sito/js/bootstrap.bundle.js"></script>
 
 <!-- Plugin JavaScript -->
-<script src="../../sito/js/jquery.easing.js"></script>
+<script src="sito/js/jquery.easing.js"></script>
 
 <!-- Contact form JavaScript -->
 
-<script src="../../sito/js/contact_me.js"></script>
+<script src="sito/js/contact_me.js"></script>
 
-<!-- Custom scripts for this template -->
-<script src="../../sito/js/index.js"></script>
+<script src="sito/js/index.js"></script>
