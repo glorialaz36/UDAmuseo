@@ -69,12 +69,12 @@ include("sito/php/conndb.php");
                                 echo "<li><a class='nav-link-drop' href='sito/php/destroy.php'>esci</a></li>";
 								echo "</ul>";
 							echo "</li>";
+							echo "<li class='nav-item'>";
+								echo "<a class='nav-link js-scroll-trigger' href='sito/php/biglietteria.php'>";
+								echo "<i class='fa fa-shopping-cart'></i></a>";
+							echo "</li>";
 						}
 					?>
-                    <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="#">
-                            <i class="fa fa-shopping-cart"></i></a>
-                    </li>
                 </ul>
             </div>
         </div>
