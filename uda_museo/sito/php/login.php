@@ -58,25 +58,25 @@
 							echo "</li>";
 						}else{
                             //è loggato
-                            $nome=explode(' ', $_SESSION['nome']);
-                            $nom=" ".$nome[0]." ";
-							echo "<li class='dropdown nav-item'>";
+                            $no=explode(' ', $_SESSION['nome']);
+                            $nom=" ".$no[0]." ";
+							echo "<li class='dropdown dropdown-dark nav-item'>";
                                 echo "<a class='nav-link' data-toggle='dropdown'><i class='fa fa-user'></i>".$nom."<i class='fa fa-angle-down'></i></a>";
-								echo "<ul class='dropdown-menu' id='dropdown'>";
-									echo "<li><a class='nav-link-drop' href='sito/php/account.php'>account</a></li>";
-									echo "<li ><a class='nav-link-drop' href='sito/php/bigliettiUtente.php'>acquisti</a></li>";
+								echo "<ul class='dropdown-menu dropdown-dark' id='dropdown'>";
+									echo "<li><a class='nav-link-drop' href='account.php'>account</a></li>";
+									echo "<li ><a class='nav-link-drop' href='bigliettiUtente.php'>acquisti</a></li>";
 									if($_SESSION['amministratore']){
 										echo "<li ><a class='nav-link-drop' href='#'>gestisci</a></li>";
                                     }
-                                echo "<li><a class='nav-link-drop' href='sito/php/destroy.php'>esci</a></li>";
+                                echo "<li><a class='nav-link-drop' href='destroy.php'>esci</a></li>";
 								echo "</ul>";
+							echo "</li>";
+							echo "<li class='nav-item'>";
+								echo "<a class='nav-link js-scroll-trigger' href='biglietteria.php'>";
+								echo "<i class='fa fa-shopping-cart'></i></a>";
 							echo "</li>";
 						}
 					?>
-                    <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="#">
-                            <i class="fa fa-shopping-cart"></i></a>
-                    </li>
                 </ul>
             </div>
         </div>
