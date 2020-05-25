@@ -38,7 +38,7 @@
 function clearForm(){
 	//script per l'annullamento della transazione e redirect al index.php in caso di risposta negativa al form di conferma dei dati
 	  alert('transazione annullata');
-      window.location='index.php';
+      window.location='../../index.php';
   }
       </script>
       
@@ -120,7 +120,7 @@ echo "<br><br>
 
 //creazione radio buttor per le categorie del biglietto(normable,disabile,ecc...)
 		for($n=0;$n<$nBiglietti;$n++){
-		$sql="select * from CATEGORIA ";
+		$sql="select * from categoria ";
 		$query = mysqli_query($mysqli,$sql);
 		//controllo esito query
 		if($query){
@@ -155,7 +155,7 @@ echo "<br><br>
 	$date = date('Y-m-d',$timestamp);
 	//recupero codice dell'evento
 	$codEve=0;
-	$sql1="select codEve from EVENTO where titolo='$evento'";
+	$sql1="select codEve from evento where titolo='$evento'";
 	$query1 = mysqli_query($mysqli,$sql1);
 	if($query1){
 		while($cicle1=mysqli_fetch_array($query1)){
@@ -174,7 +174,7 @@ echo "<br><br>
 	//registrazione del biglietto/biglietti nel database 
 	//ciclo per ripetere le azioni successive nel caso di acquisto simultaneo di piu biglietti
 	for($i=0;$i<$nBiglietti;$i++){
-	$sql2="insert into BIGLIETTO(dataVal,Eve,vis,catBig) values ('$date','$codEve','$email','$categorie[$i]')";
+	$sql2="insert into biglietto(dataVal,Eve,vis,catBig) values ('$date','$codEve','$email','$categorie[$i]')";
 		$query2 = mysqli_query($mysqli,$sql2);
 		//controllo esito query
 		if($query2){
@@ -190,7 +190,7 @@ echo "<br><br>
 	
 	//recupero del codice del biglietto appena inserito
 	$codBig=0;
-	$sql3="select codBig from BIGLIETTO where dataVal='$date' AND Eve='$codEve' AND vis='$email'";
+	$sql3="select codBig from biglietto where dataVal='$date' AND Eve='$codEve' AND vis='$email'";
 	$query3 = mysqli_query($mysqli,$sql3);
 		//controllo esito query
 		if($query3){
@@ -212,7 +212,7 @@ echo "<br><br>
 	foreach($accessori as $accessorio){
 		//recupero del codice del accessorio in esame
 	$codAcc=0;
-	$sql4="select codAcc from ACCESSORIO where descAcc='$accessorio'";
+	$sql4="select codAcc from accessorio where descAcc='$accessorio'";
 	$query4 = mysqli_query($mysqli,$sql4);
 		//controllo esito query
 		if($query4){
@@ -225,7 +225,7 @@ echo "<br><br>
 	
 	
 				// abbinamento biglietto accessorio in apposita tabella
-				$sql5="insert into BIGLACC(cBigl,cAcc) values($codBig,$codAcc)";
+				$sql5="insert into biglacc(cBigl,cAcc) values($codBig,$codAcc)";
 				$query5 = mysqli_query($mysqli,$sql5);
 				//controllo esito query
 				if($query5){
@@ -236,7 +236,7 @@ echo "<br><br>
 					
 					$codEve=0;
 					$biglRim=0;
-					$sql6="select codEve,biglRim from EVENTO where titolo='$evento' ";
+					$sql6="select codEve,biglRim from evento where titolo='$evento' ";
 					$query6 = mysqli_query($mysqli,$sql6);
 					//controllo esito query
 					if($query6){
@@ -255,7 +255,7 @@ echo "<br><br>
 							echo "Error: ". $sql6 . "<br>" .mysqli_error($mysqli);
 						}
 						$bigRim=$bigRim-1;
-					$sql7="update EVENTO set biglRim='$bigRim' where codEve=$codEve";
+					$sql7="update evento set biglRim='$bigRim' where codEve=$codEve";
 					$query7 = mysqli_query($mysqli,$sql7);
 					//controllo esito query
 					if($query7){

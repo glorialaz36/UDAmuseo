@@ -97,7 +97,7 @@ if(!isset($_POST['eventi']) && !isset($_POST['nBiglietti']) ){
 							<input type=\"number\" name=\"nBiglietti\" min=\"1\" max=\"40\" placeholder=\"Numero di Biglietti\"><br><br>
 							Eventi : <select name=\"eventi\" required>z
 						</form>";
-		$sql="select * from EVENTO ";
+		$sql="select * from evento ";
 		$query = mysqli_query($mysqli,$sql);
 		//controllo esito query
 		if($query){
@@ -123,7 +123,7 @@ if(!isset($_POST['eventi']) && !isset($_POST['nBiglietti']) ){
 	
 	
 			//recupero numero e descrizione degli accessori disponibili
-		$sql="select * from ACCESSORIO";
+		$sql="select * from accessorio";
 		$query = mysqli_query($mysqli,$sql);
 		//controllo esito query
 		if($query){
